@@ -188,7 +188,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
             Text(
               isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
               style: TextStyle(
-                fontFamily: isHome ? 'ShreeLipi' : 'Hero',
+                fontFamily: isHome ? 'Mahamaya' : 'Hero',
                 color: AppColors.gold,
                 fontSize: isHome ? 18 : 13,
                 fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
@@ -229,7 +229,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
           Text(
             isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
             style: TextStyle(
-              fontFamily: isHome ? 'ShreeLipi' : 'Hero',
+              fontFamily: isHome ? 'Mahamaya' : 'Hero',
               color: AppColors.gold,
               fontSize: isHome ? 36 : 18,
               fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
