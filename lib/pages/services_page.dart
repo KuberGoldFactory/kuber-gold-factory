@@ -41,8 +41,8 @@ class ServicesPage extends StatelessWidget {
                 desc: 'Full-scale manufacturing setup and quality control for premium jewelry products.',
               ),
               const _ServiceItem(
-                title: 'Gold Repairing',
-                desc: 'Precision metal restoration and expert jewelry repairing services.',
+                title: 'Repairing & Polishing',
+                desc: 'Expert restoration, deep cleaning, and high-gloss polishing for all jewelry types.',
               ),
               const _ServiceItem(
                 title: 'Doorstep Services',

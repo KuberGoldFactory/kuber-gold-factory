@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,6 +88,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                         ),
                         const SizedBox(width: 16),
                       ],
+                      _PlayStoreButton(),
+                      const SizedBox(width: 16),
                       IconButton(
                         onPressed: () {
                           themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
@@ -319,3 +322,251 @@ class _NavLinkState extends State<_NavLink> {
   }
 }
 
+class _PlayStoreButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => const MiligramLaunchDialog(),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: AppColors.gold.withOpacity(0.5)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 14),
+            const SizedBox(width: 4),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'GET IT ON',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 6,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  'Google Play',
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MiligramLaunchDialog extends StatefulWidget {
+  const MiligramLaunchDialog({super.key});
+
+  @override
+  State<MiligramLaunchDialog> createState() => _MiligramLaunchDialogState();
+}
+
+class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
+  late Timer _timer;
+  late Duration _timeLeft;
+  final DateTime _launchDate = DateTime(2026, 4, 2);
+
+  @override
+  void initState() {
+    super.initState();
+    _calculateTimeLeft();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted) {
+        setState(() {
+          _calculateTimeLeft();
+        });
+      }
+    });
+  }
+
+  void _calculateTimeLeft() {
+    final now = DateTime.now();
+    _timeLeft = _launchDate.difference(now);
+    if (_timeLeft.isNegative) {
+      _timeLeft = Duration.zero;
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.obsidian : AppColors.ivory,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.gold.withOpacity(0.3)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 20,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Announcement Bar
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.gold,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(23),
+                    topRight: Radius.circular(23),
+                  ),
+                ),
+                child: const Text(
+                  'ANNOUNCEMENT: MILIGRAM APP IS ON TRIAL',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Hero',
+                    fontWeight: FontWeight.w900,
+                    fontSize: 12,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                  children: [
+                    const Text(
+                      'OFFICIAL LAUNCH',
+                      style: TextStyle(
+                        fontFamily: 'Hero',
+                        color: AppColors.gold,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14,
+                        letterSpacing: 4,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'HANUMAN JAYANTI',
+                      style: TextStyle(
+                        fontFamily: 'Hero',
+                        color: isDark ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 32,
+                        letterSpacing: -1,
+                      ),
+                    ),
+                    Text(
+                      'APRIL 2, 2026',
+                      style: TextStyle(
+                        fontFamily: 'Hero',
+                        color: isDark ? Colors.white54 : Colors.black54,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _CountdownUnit(value: _timeLeft.inDays, label: 'DAYS'),
+                        _CountdownUnit(value: _timeLeft.inHours % 24, label: 'HOURS'),
+                        _CountdownUnit(value: _timeLeft.inMinutes % 60, label: 'MINS'),
+                        _CountdownUnit(value: _timeLeft.inSeconds % 60, label: 'SECS'),
+                      ],
+                    ),
+                    const SizedBox(height: 48),
+                    ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.gold,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: const Text(
+                        'NOTIFY ME',
+                        style: TextStyle(
+                          fontFamily: 'Hero',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 14,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CountdownUnit extends StatelessWidget {
+  final int value;
+  final String label;
+
+  const _CountdownUnit({required this.value, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Column(
+      children: [
+        Text(
+          value.toString().padLeft(2, '0'),
+          style: TextStyle(
+            fontFamily: 'Hero',
+            color: AppColors.gold,
+            fontSize: 40,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'Hero',
+            color: isDark ? Colors.white38 : Colors.black38,
+            fontSize: 10,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+          ),
+        ),
+      ],
+    );
+  }
+}
