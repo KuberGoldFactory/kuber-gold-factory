@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
@@ -187,12 +188,18 @@ class _SiteScaffoldState extends State<SiteScaffold> {
             // Centered title
             Text(
               isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
-              style: TextStyle(
-                fontFamily: isHome ? 'Mahamaya' : 'Hero',
-                color: AppColors.gold,
-                fontSize: isHome ? 18 : 13,
-                fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
-              ),
+              style: isHome
+                  ? GoogleFonts.notoSansDevanagari(
+                      color: AppColors.gold,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    )
+                  : const TextStyle(
+                      fontFamily: 'Hero',
+                      color: AppColors.gold,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    ),
               textAlign: TextAlign.center,
             ),
             // Logo on left
@@ -228,13 +235,20 @@ class _SiteScaffoldState extends State<SiteScaffold> {
         children: [
           Text(
             isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
-            style: TextStyle(
-              fontFamily: isHome ? 'Mahamaya' : 'Hero',
-              color: AppColors.gold,
-              fontSize: isHome ? 36 : 18,
-              fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
-              letterSpacing: isHome ? 1 : 2,
-            ),
+            style: isHome
+                ? GoogleFonts.notoSansDevanagari(
+                    color: AppColors.gold,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                  )
+                : const TextStyle(
+                    fontFamily: 'Hero',
+                    color: AppColors.gold,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2,
+                  ),
           ),
           // Possibly add some top bar actions here later if needed
         ],
