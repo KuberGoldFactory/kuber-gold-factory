@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import '../main.dart';
 
@@ -19,14 +18,16 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildHero(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.obsidian,
-            AppColors.charcoal.withOpacity(0.8),
+            isDark ? AppColors.obsidian : AppColors.ivory,
+            isDark ? AppColors.charcoal.withOpacity(0.8) : Colors.white.withOpacity(0.9),
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -40,10 +41,11 @@ class HomePage extends StatelessWidget {
             children: [
               Text(
                 'THE KUBER ECOSYSTEM',
-                style: GoogleFonts.heebo(
+                style: TextStyle(
+                  fontFamily: 'Hero',
                   color: AppColors.gold.withOpacity(0.8),
                   fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w700,
                   letterSpacing: 8,
                 ),
               ),
@@ -51,8 +53,9 @@ class HomePage extends StatelessWidget {
               Text(
                 'MANUFACTURING EXCELLENCE\nMEETS DIGITAL INNOVATION',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.heebo(
-                  color: AppColors.ivory,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.ivory : Colors.black87,
                   fontSize: 48,
                   fontWeight: FontWeight.w900,
                   letterSpacing: -0.5,
@@ -72,8 +75,9 @@ class HomePage extends StatelessWidget {
               Text(
                 'FROM FACTORY PRECISION TO DRONE DELIVERY',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.heebo(
-                  color: AppColors.textMuted,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.textMuted : Colors.black54,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 4,
@@ -87,11 +91,12 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                 ),
-                child: Text(
+                child: const Text(
                   'DISCOVER THE VISION',
-                  style: GoogleFonts.heebo(
+                  style: TextStyle(
+                    fontFamily: 'Hero',
                     color: AppColors.gold,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                     letterSpacing: 2,
                   ),
                 ),
@@ -104,14 +109,17 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildEcosystem(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: AppColors.charcoal,
+      color: isDark ? AppColors.charcoal : Colors.white,
       child: Column(
         children: [
-          Text(
+          const Text(
             'CORE PILLARS',
-            style: GoogleFonts.heebo(
+            style: TextStyle(
+              fontFamily: 'Hero',
               color: AppColors.gold,
               fontSize: 12,
               fontWeight: FontWeight.w900,
@@ -126,16 +134,19 @@ class HomePage extends StatelessWidget {
             children: [
               _EcosystemCard(
                 icon: Icons.factory_rounded,
+                isDark: isDark,
                 title: 'Kuber Factory',
                 desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
               ),
               _EcosystemCard(
                 icon: Icons.layers_rounded,
+                isDark: isDark,
                 title: 'Miligram App',
                 desc: 'Digital tools for B2B accounting, secure supply chain management, and wealth services.',
               ),
               _EcosystemCard(
                 icon: Icons.auto_mode_rounded,
+                isDark: isDark,
                 title: 'Drone Delivery',
                 desc: 'Future-forward 1km range drone service for seamless, secure door-to-door jewelry logistics.',
               ),
@@ -151,8 +162,14 @@ class _EcosystemCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String desc;
+  final bool isDark;
 
-  const _EcosystemCard({required this.icon, required this.title, required this.desc});
+  const _EcosystemCard({
+    required this.icon, 
+    required this.title, 
+    required this.desc,
+    required this.isDark,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +177,8 @@ class _EcosystemCard extends StatelessWidget {
       width: 320,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.gold.withOpacity(0.04),
-        border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+        color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+        border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -177,18 +194,20 @@ class _EcosystemCard extends StatelessWidget {
           const SizedBox(height: 32),
           Text(
             title,
-            style: GoogleFonts.heebo(
-              color: AppColors.ivory,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.ivory : Colors.black87,
               fontSize: 22,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 20),
           Text(
             desc,
             textAlign: TextAlign.center,
-            style: GoogleFonts.heebo(
-              color: AppColors.textMain,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.textMain : Colors.black54,
               fontSize: 15,
               height: 1.6,
               fontWeight: FontWeight.w400,
@@ -199,5 +218,6 @@ class _EcosystemCard extends StatelessWidget {
     );
   }
 }
+
 
 

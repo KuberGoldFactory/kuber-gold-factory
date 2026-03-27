@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
@@ -18,23 +17,26 @@ class ContactPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildHero(),
+          _buildHero(context),
           _buildContactContent(context),
         ],
       ),
     );
   }
 
-  Widget _buildHero() {
+  Widget _buildHero(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       height: 300,
       width: double.infinity,
-      color: AppColors.obsidian,
+      color: isDark ? AppColors.obsidian : AppColors.ivory,
       child: Center(
         child: Text(
           'CONNECT WITH US',
-          style: GoogleFonts.heebo(
-            color: AppColors.ivory,
+          style: TextStyle(
+            fontFamily: 'Hero',
+            color: isDark ? AppColors.ivory : Colors.black87,
             fontSize: 48,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -45,9 +47,11 @@ class ContactPage extends StatelessWidget {
   }
 
   Widget _buildContactContent(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: AppColors.charcoal,
+      color: isDark ? AppColors.charcoal : Colors.white,
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1000),
@@ -62,9 +66,10 @@ class ContactPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'DIRECT SUPPORT',
-                      style: GoogleFonts.heebo(
+                      style: TextStyle(
+                        fontFamily: 'Hero',
                         color: AppColors.gold,
                         fontSize: 12,
                         fontWeight: FontWeight.w900,
@@ -73,6 +78,7 @@ class ContactPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     _buildContactMethod(
+                      isDark: isDark,
                       icon: Icons.chat_bubble_outline_rounded,
                       title: 'WhatsApp Chat',
                       content: '+91 9922965494',
@@ -80,6 +86,7 @@ class ContactPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     _buildContactMethod(
+                      isDark: isDark,
                       icon: Icons.location_on_outlined,
                       title: 'Factory Location',
                       content: 'Akot, Dist. Akola, Maharashtra',
@@ -95,9 +102,10 @@ class ContactPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'SEND AN INQUIRY',
-                      style: GoogleFonts.heebo(
+                      style: TextStyle(
+                        fontFamily: 'Hero',
                         color: AppColors.gold,
                         fontSize: 12,
                         fontWeight: FontWeight.w900,
@@ -105,11 +113,11 @@ class ContactPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    _buildTextField('Your Name'),
+                    _buildTextField(context, 'Your Name', isDark),
                     const SizedBox(height: 20),
-                    _buildTextField('Email Address'),
+                    _buildTextField(context, 'Email Address', isDark),
                     const SizedBox(height: 20),
-                    _buildTextField('Your Message', maxLines: 4),
+                    _buildTextField(context, 'Your Message', isDark, maxLines: 4),
                     const SizedBox(height: 40),
                     SizedBox(
                       width: double.infinity,
@@ -122,9 +130,10 @@ class ContactPage extends StatelessWidget {
                           elevation: 0,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
-                        child: Text(
+                        child: const Text(
                           'SUBMIT INQUIRY',
-                          style: GoogleFonts.heebo(
+                          style: TextStyle(
+                            fontFamily: 'Hero',
                             fontWeight: FontWeight.w900,
                             letterSpacing: 2,
                             fontSize: 15,
@@ -142,15 +151,21 @@ class ContactPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContactMethod({required IconData icon, required String title, required String content, required VoidCallback onTap}) {
+  Widget _buildContactMethod({
+    required bool isDark,
+    required IconData icon, 
+    required String title, 
+    required String content, 
+    required VoidCallback onTap,
+  }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.gold.withOpacity(0.04),
-          border: Border.all(color: AppColors.gold.withOpacity(0.1)),
+          color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+          border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.1 : 0.2)),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -162,17 +177,19 @@ class ContactPage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.heebo(
-                    color: AppColors.ivory,
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: isDark ? AppColors.ivory : Colors.black87,
                     fontSize: 18,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   content,
-                  style: GoogleFonts.heebo(
-                    color: AppColors.textMain,
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: isDark ? AppColors.textMain : Colors.black54,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -185,15 +202,23 @@ class ContactPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(String label, {int maxLines = 1}) {
+  Widget _buildTextField(BuildContext context, String label, bool isDark, {int maxLines = 1}) {
     return TextField(
       maxLines: maxLines,
-      style: GoogleFonts.heebo(color: Colors.white, fontSize: 15),
+      style: TextStyle(
+        fontFamily: 'Hero',
+        color: isDark ? Colors.white : Colors.black87,
+        fontSize: 15,
+      ),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: GoogleFonts.heebo(color: AppColors.textMuted, fontSize: 13),
+        labelStyle: TextStyle(
+          fontFamily: 'Hero',
+          color: isDark ? AppColors.textMuted : Colors.black45,
+          fontSize: 13,
+        ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.gold.withOpacity(0.15)),
+          borderSide: BorderSide(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.3)),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
@@ -201,11 +226,12 @@ class ContactPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         filled: true,
-        fillColor: AppColors.gold.withOpacity(0.04),
+        fillColor: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
     );
   }
 }
+
 
 

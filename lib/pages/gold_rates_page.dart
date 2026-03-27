@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../main.dart';
 
 class GoldRatesPage extends StatelessWidget {
@@ -7,14 +6,17 @@ class GoldRatesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
         child: Column(
           children: [
-            Text(
+            const Text(
               'BULLION STANDARDS',
-              style: GoogleFonts.heebo(
+              style: TextStyle(
+                fontFamily: 'Hero',
                 color: AppColors.gold,
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
@@ -25,8 +27,9 @@ class GoldRatesPage extends StatelessWidget {
             Text(
               'KUBER MARKET RATES',
               textAlign: TextAlign.center,
-              style: GoogleFonts.heebo(
-                color: AppColors.ivory,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.ivory : Colors.black87,
                 fontSize: 48,
                 fontWeight: FontWeight.w900,
                 letterSpacing: -0.5,
@@ -35,8 +38,9 @@ class GoldRatesPage extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               'Last Updated: March 27, 2026',
-              style: GoogleFonts.heebo(
-                color: AppColors.textMuted,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.textMuted : Colors.black54,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 1,
@@ -46,19 +50,19 @@ class GoldRatesPage extends StatelessWidget {
             Container(
               constraints: const BoxConstraints(maxWidth: 800),
               decoration: BoxDecoration(
-                color: AppColors.gold.withOpacity(0.04),
-                border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+                color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+                border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Column(
                   children: [
-                    _buildHeaderRow(),
-                    _buildRateRow('24K Fine Gold (99.9%)', '₹ 6,540 / gm'),
-                    _buildRateRow('22K Standard Gold (91.6%)', '₹ 6,120 / gm'),
-                    _buildRateRow('18K Gold (75.0%)', '₹ 5,010 / gm'),
-                    _buildRateRow('Pure Silver (99.9%)', '₹ 78.50 / gm'),
+                    _buildHeaderRow(isDark),
+                    _buildRateRow('24K Fine Gold (99.9%)', '₹ 6,540 / gm', isDark),
+                    _buildRateRow('22K Standard Gold (91.6%)', '₹ 6,120 / gm', isDark),
+                    _buildRateRow('18K Gold (75.0%)', '₹ 5,010 / gm', isDark),
+                    _buildRateRow('Pure Silver (99.9%)', '₹ 78.50 / gm', isDark),
                   ],
                 ),
               ),
@@ -66,8 +70,9 @@ class GoldRatesPage extends StatelessWidget {
             const SizedBox(height: 40),
             Text(
               '* All rates are indicative of Kuber Gold Factory and Kuber Gold Bullion standards.',
-              style: GoogleFonts.heebo(
-                color: AppColors.textMuted,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.textMuted : Colors.black54,
                 fontSize: 12,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w400,
@@ -79,19 +84,20 @@ class GoldRatesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderRow() {
+  Widget _buildHeaderRow(bool isDark) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
       decoration: BoxDecoration(
         color: AppColors.gold.withOpacity(0.08),
         border: Border(bottom: BorderSide(color: AppColors.gold.withOpacity(0.2), width: 1)),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             'METAL TYPE',
-            style: GoogleFonts.heebo(
+            style: TextStyle(
+              fontFamily: 'Hero',
               color: AppColors.gold,
               fontWeight: FontWeight.w900,
               fontSize: 12,
@@ -100,7 +106,8 @@ class GoldRatesPage extends StatelessWidget {
           ),
           Text(
             'RATE (INR)',
-            style: GoogleFonts.heebo(
+            style: TextStyle(
+              fontFamily: 'Hero',
               color: AppColors.gold,
               fontWeight: FontWeight.w900,
               fontSize: 12,
@@ -112,7 +119,7 @@ class GoldRatesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRateRow(String type, String rate) {
+  Widget _buildRateRow(String type, String rate, bool isDark) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
       decoration: BoxDecoration(
@@ -123,18 +130,20 @@ class GoldRatesPage extends StatelessWidget {
         children: [
           Text(
             type,
-            style: GoogleFonts.heebo(
-              color: AppColors.ivory,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.ivory : Colors.black87,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),
           Text(
             rate,
-            style: GoogleFonts.heebo(
-              color: AppColors.goldLight,
+            style: const TextStyle(
+              fontFamily: 'Hero',
+              color: AppColors.gold,
               fontSize: 18,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
             ),
           ),
         ],
@@ -142,5 +151,6 @@ class GoldRatesPage extends StatelessWidget {
     );
   }
 }
+
 
 

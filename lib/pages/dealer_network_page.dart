@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../main.dart';
 
 class DealerNetworkPage extends StatelessWidget {
@@ -7,14 +6,17 @@ class DealerNetworkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
         child: Column(
           children: [
-            Text(
+            const Text(
               'SUPPLY CHAIN NETWORK',
-              style: GoogleFonts.heebo(
+              style: TextStyle(
+                fontFamily: 'Hero',
                 color: AppColors.gold,
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
@@ -25,8 +27,9 @@ class DealerNetworkPage extends StatelessWidget {
             Text(
               'POWERED BY MILIGRAM',
               textAlign: TextAlign.center,
-              style: GoogleFonts.heebo(
-                color: AppColors.ivory,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.ivory : Colors.black87,
                 fontSize: 48,
                 fontWeight: FontWeight.w900,
                 letterSpacing: -0.5,
@@ -38,8 +41,9 @@ class DealerNetworkPage extends StatelessWidget {
               child: Text(
                 'Our B2B dealer network operates on the Miligram digital supply chain, ensuring real-time inventory tracking, secure accounting, and upcoming drone-assisted local logistics.',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.heebo(
-                  color: AppColors.textMuted,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.textMuted : Colors.black54,
                   fontSize: 16,
                   height: 1.7,
                   fontWeight: FontWeight.w400,
@@ -52,9 +56,9 @@ class DealerNetworkPage extends StatelessWidget {
               runSpacing: 32,
               alignment: WrapAlignment.center,
               children: [
-                _NetworkHub(city: 'Manufacturing Hub', address: 'Akot Factory Setup'),
-                _NetworkHub(city: 'Distribution node', address: 'Regional Supply Points'),
-                _NetworkHub(city: 'Partner Outlets', address: 'Verified Dealer Network'),
+                _NetworkHub(city: 'Manufacturing Hub', address: 'Akot Factory Setup', isDark: isDark),
+                _NetworkHub(city: 'Distribution node', address: 'Regional Supply Points', isDark: isDark),
+                _NetworkHub(city: 'Partner Outlets', address: 'Verified Dealer Network', isDark: isDark),
               ],
             ),
           ],
@@ -67,8 +71,9 @@ class DealerNetworkPage extends StatelessWidget {
 class _NetworkHub extends StatelessWidget {
   final String city;
   final String address;
+  final bool isDark;
 
-  const _NetworkHub({required this.city, required this.address});
+  const _NetworkHub({required this.city, required this.address, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +81,8 @@ class _NetworkHub extends StatelessWidget {
       width: 280,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.gold.withOpacity(0.04),
-        border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+        color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+        border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -88,24 +93,26 @@ class _NetworkHub extends StatelessWidget {
               color: AppColors.gold.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.hub_rounded, color: AppColors.gold, size: 28),
+            child: const Icon(Icons.hub_rounded, color: AppColors.gold, size: 28),
           ),
           const SizedBox(height: 24),
           Text(
             city,
             textAlign: TextAlign.center,
-            style: GoogleFonts.heebo(
-              color: AppColors.ivory,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.ivory : Colors.black87,
               fontSize: 20,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 12),
           Text(
             address,
             textAlign: TextAlign.center,
-            style: GoogleFonts.heebo(
-              color: AppColors.textMain,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.textMain : Colors.black54,
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
@@ -115,5 +122,6 @@ class _NetworkHub extends StatelessWidget {
     );
   }
 }
+
 
 

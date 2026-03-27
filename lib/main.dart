@@ -31,30 +31,48 @@ final _router = GoRouter(
   ],
 );
 
+final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.dark);
+
 class KuberGoldFactoryApp extends StatelessWidget {
   const KuberGoldFactoryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Kuber Gold Factory',
-      debugShowCheckedModeBanner: false,
-      routerConfig: _router,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.obsidian,
-        colorScheme: const ColorScheme.dark(
-          primary: AppColors.gold,
-          secondary: AppColors.goldLight,
-          surface: AppColors.charcoal,
-        ),
-        // Use Heebo as the "Miligram Hero" substitute
-        textTheme: GoogleFonts.heeboTextTheme(ThemeData.dark().textTheme).copyWith(
-          displayLarge: GoogleFonts.heebo(fontWeight: FontWeight.w900),
-          headlineLarge: GoogleFonts.heebo(fontWeight: FontWeight.w800),
-          titleLarge: GoogleFonts.heebo(fontWeight: FontWeight.bold),
-        ),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeModeNotifier,
+      builder: (context, mode, child) {
+        return MaterialApp.router(
+          title: 'Kuber Gold Factory',
+          debugShowCheckedModeBanner: false,
+          routerConfig: _router,
+          themeMode: mode,
+          darkTheme: _buildTheme(Brightness.dark),
+          theme: _buildTheme(Brightness.light),
+        );
+      },
+    );
+  }
+
+  ThemeData _buildTheme(Brightness brightness) {
+    final isDark = brightness == Brightness.dark;
+    final baseTheme = isDark ? ThemeData.dark() : ThemeData.light();
+    
+    return ThemeData(
+      useMaterial3: true,
+      brightness: brightness,
+      scaffoldBackgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.gold,
+        brightness: brightness,
+        primary: AppColors.gold,
+        surface: isDark ? AppColors.charcoal : Colors.white,
+      ),
+      // Use the authentic "Hero" font family
+      fontFamily: 'Hero',
+      textTheme: baseTheme.textTheme.apply(
+        fontFamily: 'Hero',
+        bodyColor: isDark ? AppColors.textMain : Colors.black87,
+        displayColor: isDark ? AppColors.ivory : Colors.black,
       ),
     );
   }

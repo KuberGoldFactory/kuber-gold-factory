@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../main.dart';
 
 class ServicesPage extends StatelessWidget {
@@ -10,21 +9,22 @@ class ServicesPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildHero(),
+          _buildHero(context),
           _buildCategory(
             context,
             'MILIGRAM DIGITAL SUITE',
             'Digital tools for business transparency.',
+            true,
             [
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'B2B Accounting',
                 desc: 'Specialized digital ledger systems designed for jewelry business transparency and financial precision.',
               ),
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Buying & Selling',
                 desc: 'Streamlined digital platforms for wholesale transactions with real-time tracking.',
               ),
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Mortgage Solutions',
                 desc: 'Secure digital processing for gold-backed financial operations and secure SIP / FD tracking.',
               ),
@@ -34,16 +34,17 @@ class ServicesPage extends StatelessWidget {
             context,
             'PHYSICAL SERVICES',
             'Expert manufacturing and logistical solutions.',
+            false,
             [
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Quality Manufacturing',
                 desc: 'Full-scale manufacturing setup and quality control for premium jewelry products.',
               ),
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Gold Repairing',
                 desc: 'Precision metal restoration and expert jewelry repairing services.',
               ),
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Drone Delivery',
                 desc: 'Upcoming 1km range secure drone service for instantaneous door-to-door jewelry delivery.',
               ),
@@ -53,12 +54,13 @@ class ServicesPage extends StatelessWidget {
             context,
             'FUTURE HORIZONS',
             'Expanding the standards of excellence.',
+            true,
             [
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Gold Refinery',
                 desc: 'Setting new benchmarks in metal purification and high-purity refinery services.',
               ),
-              _ServiceItem(
+              const _ServiceItem(
                 title: 'Bullion Services',
                 desc: 'Standardized bullion trading and secure investment-grade metal supply.',
               ),
@@ -69,16 +71,19 @@ class ServicesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHero() {
+  Widget _buildHero(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       height: 300,
       width: double.infinity,
-      color: AppColors.obsidian,
+      color: isDark ? AppColors.obsidian : AppColors.ivory,
       child: Center(
         child: Text(
           'OUR SERVICES',
-          style: GoogleFonts.heebo(
-            color: AppColors.ivory,
+          style: TextStyle(
+            fontFamily: 'Hero',
+            color: isDark ? AppColors.ivory : Colors.black87,
             fontSize: 48,
             fontWeight: FontWeight.w900,
             letterSpacing: 2,
@@ -88,10 +93,18 @@ class ServicesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategory(BuildContext context, String title, String subtitle, List<_ServiceItem> items) {
+  Widget _buildCategory(BuildContext context, String title, String subtitle, bool altBackground, List<_ServiceItem> items) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    Color bgColor;
+    if (isDark) {
+      bgColor = altBackground ? AppColors.charcoal : AppColors.obsidian;
+    } else {
+      bgColor = altBackground ? Colors.black.withOpacity(0.02) : Colors.white;
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
-      color: items.length % 2 == 0 ? AppColors.charcoal : AppColors.obsidian,
+      color: bgColor,
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1200),
@@ -99,7 +112,8 @@ class ServicesPage extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: GoogleFonts.heebo(
+                style: const TextStyle(
+                  fontFamily: 'Hero',
                   color: AppColors.gold,
                   fontSize: 12,
                   fontWeight: FontWeight.w900,
@@ -109,8 +123,9 @@ class ServicesPage extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 subtitle,
-                style: GoogleFonts.heebo(
-                  color: AppColors.textMuted,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.textMuted : Colors.black54,
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
                 ),
@@ -138,12 +153,14 @@ class _ServiceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       width: 350,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.gold.withOpacity(0.04),
-        border: Border.all(color: AppColors.gold.withOpacity(0.12)),
+        color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+        border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.12 : 0.2)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -160,18 +177,20 @@ class _ServiceItem extends StatelessWidget {
           const SizedBox(height: 24),
           Text(
             title,
-            style: GoogleFonts.heebo(
-              color: AppColors.ivory,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.ivory : Colors.black87,
               fontSize: 22,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
               letterSpacing: -0.5,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             desc,
-            style: GoogleFonts.heebo(
-              color: AppColors.textMain,
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: isDark ? AppColors.textMain : Colors.black54,
               fontSize: 15,
               height: 1.6,
               fontWeight: FontWeight.w400,
@@ -182,5 +201,6 @@ class _ServiceItem extends StatelessWidget {
     );
   }
 }
+
 
 
