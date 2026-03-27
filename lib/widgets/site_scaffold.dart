@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
@@ -14,6 +13,7 @@ class SiteScaffold extends StatefulWidget {
 }
 
 class _SiteScaffoldState extends State<SiteScaffold> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _menuOpen = false;
 
   static const _navItems = [
@@ -27,110 +27,221 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   @override
   Widget build(BuildContext context) {
     final loc = GoRouterState.of(context).uri.toString();
-    final isMobile = MediaQuery.of(context).size.width < 900;
+    final isMobile = MediaQuery.of(context).size.width < 1100; // Increased threshold for sidebar comfort
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: AppColors.obsidian,
-      body: Stack(
+      key: _scaffoldKey,
+      backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
+      drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
+      body: Row(
         children: [
-          Column(
-            children: [
-              _buildNavBar(context, loc, isMobile),
-              Expanded(child: widget.child),
-            ],
+          if (!isMobile) _buildSidebar(context, loc, isDark),
+          Expanded(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    if (isMobile) _buildMobileHeader(context, loc, isDark),
+                    Expanded(
+                      child: ClipRRect(
+                        // Give content a slight rounded feel like the reference
+                        borderRadius: isMobile ? BorderRadius.zero : const BorderRadius.only(topLeft: Radius.circular(24)),
+                        child: Container(
+                          color: isDark ? AppColors.charcoal : Colors.white,
+                          child: widget.child,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                _buildFloatingWhatsApp(context),
+              ],
+            ),
           ),
-          _buildFloatingWhatsApp(context),
-          if (isMobile && _menuOpen) _buildMobileMenu(context, loc),
         ],
       ),
     );
   }
 
-  Widget _buildNavBar(BuildContext context, String loc, bool isMobile) {
-    return ValueListenableBuilder<ThemeMode>(
-      valueListenable: themeModeNotifier,
-      builder: (context, mode, child) {
-        final isDark = mode == ThemeMode.dark;
-        final title = _navItems.firstWhere((item) => item.$2 == loc, orElse: () => _navItems.first).$1;
-        
-        return Container(
-          decoration: BoxDecoration(
-            color: isDark ? AppColors.obsidian.withOpacity(0.95) : Colors.white.withOpacity(0.95),
-            border: Border(
-              bottom: BorderSide(color: isDark ? AppColors.gold : AppColors.gold.withOpacity(0.3), width: 1),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.gold.withOpacity(isDark ? 0.08 : 0.04),
-                blurRadius: 24,
-                spreadRadius: 0,
-              ),
-            ],
+  Widget _buildSidebar(BuildContext context, String loc, bool isDark) {
+    return Container(
+      width: 280,
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.obsidian : AppColors.ivory,
+        border: Border(
+          right: BorderSide(color: AppColors.gold.withOpacity(0.15)),
+        ),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: _buildKubergLogo(context, isDark),
           ),
-          child: SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-              child: Column(
+          const SizedBox(height: 40),
+          // Mock Search Bar from reference
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      _buildKubergLogo(context, isDark),
-                      const Spacer(),
-                      if (!isMobile) ...[
-                        const _NavLink(label: 'Home', route: '/', active: false), // Placeholder logic for mapping
-                        _ServicesDropdown(active: loc.startsWith('/services')),
-                        _NavLink(label: 'About', route: '/about', active: loc == '/about'),
-                        _NavLink(label: 'Gold Rates', route: '/gold-rates', active: loc == '/gold-rates'),
-                        _NavLink(label: 'Dealer Network', route: '/dealer-network', active: loc == '/dealer-network'),
-                        _NavLink(label: 'Contact', route: '/contact', active: loc == '/contact'),
-                        const SizedBox(width: 16),
-                      ],
-                      _PlayStoreButton(),
-                      const SizedBox(width: 16),
-                      IconButton(
-                        onPressed: () {
-                          themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
-                        },
-                        icon: Icon(
-                          isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-                          color: AppColors.gold,
-                          size: 24,
-                        ),
-                        tooltip: 'Toggle Theme',
-                      ),
-                      if (isMobile) ...[
-                        const SizedBox(width: 8),
-                        IconButton(
-                          icon: Icon(
-                            _menuOpen ? Icons.close : Icons.menu,
-                            color: AppColors.gold,
-                            size: 28,
-                          ),
-                          onPressed: () => setState(() => _menuOpen = !_menuOpen),
-                        ),
-                      ],
-                    ],
-                  ),
-                  if (!isMobile) ...[
-                    const SizedBox(height: 10),
-                    Text(
-                      '{ $title }',
-                      style: TextStyle(
-                        fontFamily: 'Hero',
-                        color: isDark ? AppColors.gold.withOpacity(0.9) : AppColors.gold,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 2,
-                      ),
+                  Icon(Icons.search_rounded, color: AppColors.gold.withOpacity(0.5), size: 20),
+                  const SizedBox(width: 12),
+                  Text(
+                    'Search Ecosystem...',
+                    style: TextStyle(
+                      fontFamily: 'Hero',
+                      color: AppColors.textMuted,
+                      fontSize: 13,
                     ),
-                  ],
+                  ),
                 ],
               ),
             ),
           ),
-        );
-      },
+          const SizedBox(height: 32),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              children: [
+                _SidebarItem(
+                  icon: Icons.dashboard_rounded,
+                  label: 'Dashboard',
+                  route: '/',
+                  active: loc == '/',
+                ),
+                _SidebarServicesItem(active: loc.startsWith('/services')),
+                _SidebarItem(
+                  icon: Icons.info_rounded,
+                  label: 'About Vision',
+                  route: '/about',
+                  active: loc == '/about',
+                ),
+                _SidebarItem(
+                  icon: Icons.trending_up_rounded,
+                  label: 'Gold Rates',
+                  route: '/gold-rates',
+                  active: loc == '/gold-rates',
+                ),
+                _SidebarItem(
+                  icon: Icons.hub_rounded,
+                  label: 'Dealer Network',
+                  route: '/dealer-network',
+                  active: loc == '/dealer-network',
+                ),
+                _SidebarItem(
+                  icon: Icons.contact_support_rounded,
+                  label: 'Contact Support',
+                  route: '/contact',
+                  active: loc == '/contact',
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                _PlayStoreButton(),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
+                  },
+                  icon: Icon(
+                    isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                    color: AppColors.gold,
+                  ),
+                  tooltip: 'Toggle Theme',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMobileHeader(BuildContext context, String loc, bool isDark) {
+    final title = _navItems.firstWhere((item) => item.$2 == loc, orElse: () => _navItems.first).$1;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.obsidian : Colors.white,
+        border: Border(bottom: BorderSide(color: AppColors.gold.withOpacity(0.2))),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Row(
+          children: [
+            _buildKubergLogo(context, isDark),
+            const Spacer(),
+            Text(
+              '{ $title }',
+              style: const TextStyle(
+                fontFamily: 'Hero',
+                color: AppColors.gold,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileDrawer(BuildContext context, String loc) {
+    return Drawer(
+      backgroundColor: AppColors.obsidian,
+      child: Column(
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: AppColors.gold.withOpacity(0.2))),
+            ),
+            child: Center(child: _buildKubergLogo(context, true)),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                ..._navItems.map((item) => ListTile(
+                  title: Text(item.$1, style: const TextStyle(color: AppColors.ivory, fontFamily: 'Hero')),
+                  selected: loc == item.$2,
+                  selectedTileColor: AppColors.gold.withOpacity(0.1),
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.go(item.$2);
+                  },
+                )),
+                ListTile(
+                  title: const Text('SERVICES', style: TextStyle(color: AppColors.ivory, fontFamily: 'Hero')),
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.go('/services');
+                  },
+                ),
+              ],
+            ),
+          ),
+          const _PlayStoreButton(),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 
@@ -182,69 +293,6 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildMobileMenu(BuildContext context, String loc) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: GestureDetector(
-        onTap: () => setState(() => _menuOpen = false),
-        child: Container(
-          color: Colors.black.withOpacity(0.85),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: const EdgeInsets.only(top: 80),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.charcoal,
-                border: Border.all(color: AppColors.gold.withOpacity(0.3)),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ..._navItems.map((item) {
-                    final active = loc == item.$2;
-                    return _buildMobileNavItem(item.$1, item.$2, active);
-                  }),
-                  _buildMobileNavItem('SERVICES', '/services', loc.startsWith('/services')),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMobileNavItem(String label, String route, bool active) {
-    return InkWell(
-      onTap: () {
-        setState(() => _menuOpen = false);
-        context.go(route);
-      },
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: AppColors.divider),
-          ),
-          color: active ? AppColors.gold.withOpacity(0.08) : Colors.transparent,
-        ),
-        child: Text(
-          label,
-          style: GoogleFonts.inter(
-            color: active ? AppColors.gold : AppColors.ivory,
-            fontSize: 16,
-            fontWeight: active ? FontWeight.w600 : FontWeight.w400,
-            letterSpacing: 1,
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildFloatingWhatsApp(BuildContext context) {
     return Positioned(
@@ -279,76 +327,9 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   }
 }
 
-class _NavLink extends StatefulWidget {
-  final String label;
-  final String route;
-  final bool active;
-  final bool isDropdown;
-  final VoidCallback? onTap;
-
-  const _NavLink({
-    required this.label, 
-    required this.route, 
-    required this.active,
-    this.isDropdown = false,
-    this.onTap,
-  });
-
-  @override
-  State<_NavLink> createState() => _NavLinkState();
-}
-
-class _NavLinkState extends State<_NavLink> {
-  bool _hovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit: (_) => setState(() => _hovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap ?? () => context.go(widget.route),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          margin: const EdgeInsets.symmetric(horizontal: 6),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: widget.active ? AppColors.gold : (_hovered ? AppColors.gold.withOpacity(0.5) : Colors.transparent),
-                width: 2,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                widget.label,
-                style: GoogleFonts.inter(
-                  color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
-                  fontSize: 13,
-                  fontWeight: widget.active ? FontWeight.w600 : FontWeight.w400,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              if (widget.isDropdown) ...[
-                const SizedBox(width: 4),
-                Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
-                  size: 14,
-                ),
-              ],
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _PlayStoreButton extends StatelessWidget {
+  const _PlayStoreButton();
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -596,56 +577,111 @@ class _CountdownUnit extends StatelessWidget {
     );
   }
 }
-class _ServicesDropdown extends StatelessWidget {
+
+class _SidebarItem extends StatefulWidget {
+  final IconData icon;
+  final String label;
+  final String route;
   final bool active;
-  const _ServicesDropdown({required this.active});
+
+  const _SidebarItem({
+    required this.icon,
+    required this.label,
+    required this.route,
+    required this.active,
+  });
+
+  @override
+  State<_SidebarItem> createState() => _SidebarItemState();
+}
+
+class _SidebarItemState extends State<_SidebarItem> {
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: () => context.go(widget.route),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: widget.active 
+                ? AppColors.gold.withOpacity(0.12) 
+                : (_hovered ? (isDark ? Colors.white10 : Colors.black.withOpacity(0.04)) : Colors.transparent),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                widget.icon,
+                color: widget.active ? AppColors.gold : (isDark ? AppColors.textMain : Colors.black87),
+                size: 20,
+              ),
+              const SizedBox(width: 16),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: widget.active ? AppColors.gold : (isDark ? AppColors.textMain : Colors.black87),
+                  fontSize: 14,
+                  fontWeight: widget.active ? FontWeight.w900 : FontWeight.w500,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SidebarServicesItem extends StatelessWidget {
+  final bool active;
+  const _SidebarServicesItem({required this.active});
+
+  @override
+  Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      onSelected: (value) {
-        if (!value.contains('Upcoming')) {
-          context.go('/services');
-        }
-      },
-      color: isDark ? AppColors.charcoal : Colors.white,
-      offset: const Offset(0, 40),
+      onSelected: (value) => context.go('/services'),
+      tooltip: 'View Services',
+      offset: const Offset(260, 0),
+      color: AppColors.charcoal,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: AppColors.gold.withOpacity(0.2)),
       ),
       itemBuilder: (context) => [
-        _buildItem('1. Jewelry Deals'),
-        _buildItem('2. SIP (Upcoming)'),
-        _buildItem('3. Bullion (Upcoming)'),
-        _buildItem('4. Mortgage (Upcoming)'),
-        _buildItem('5. Refinery (Upcoming)'),
-        _buildItem('6. Jewelry Testing (Request settled in 24 hrs.)'),
-        _buildItem('7. Inventory Management (For Business)'),
+        _buildPopupItem('1. Jewelry Deals'),
+        _buildPopupItem('2. SIP (Upcoming)'),
+        _buildPopupItem('3. Bullion (Upcoming)'),
+        _buildPopupItem('4. Mortgage (Upcoming)'),
+        _buildPopupItem('5. Refinery (Upcoming)'),
+        _buildPopupItem('6. Jewelry Testing'),
+        _buildPopupItem('7. Inventory Management'),
       ],
-      child: _NavLink(
-        label: 'SERVICES', 
-        route: '/services', 
+      child: _SidebarItem(
+        icon: Icons.category_rounded,
+        label: 'Business Pillars',
+        route: '/services', // Still navigates on direct click if parent allowed, but we use popup
         active: active,
-        isDropdown: true,
-        onTap: () {}, // Do nothing, let PopupMenuButton handle it
       ),
     );
   }
 
-  PopupMenuItem<String> _buildItem(String label) {
+  PopupMenuItem<String> _buildPopupItem(String label) {
     return PopupMenuItem<String>(
       value: label,
       child: Text(
         label,
-        style: const TextStyle(
-          fontFamily: 'Hero',
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.5,
-        ),
+        style: const TextStyle(fontFamily: 'Hero', fontSize: 13, color: AppColors.ivory),
       ),
     );
   }

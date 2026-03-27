@@ -48,26 +48,64 @@ class GoldRatesPage extends StatelessWidget {
             ),
             const SizedBox(height: 60),
             Container(
-              constraints: const BoxConstraints(maxWidth: 800),
+              constraints: const BoxConstraints(maxWidth: 600),
+              padding: const EdgeInsets.all(48),
               decoration: BoxDecoration(
-                color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
-                border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
-                borderRadius: BorderRadius.circular(12),
+                color: AppColors.gold.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: AppColors.gold.withOpacity(0.2)),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Column(
-                  children: [
-                    _buildHeaderRow(isDark),
-                    _buildRateRow('24K Fine Gold (99.9%)', '₹ 6,540 / gm', isDark),
-                    _buildRateRow('22K Standard Gold (91.6%)', '₹ 6,120 / gm', isDark),
-                    _buildRateRow('18K Gold (75.0%)', '₹ 5,010 / gm', isDark),
-                    _buildRateRow('Pure Silver (99.9%)', '₹ 78.50 / gm', isDark),
-                  ],
-                ),
+              child: Column(
+                children: [
+                   Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.gold.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.access_time_filled_rounded,
+                      color: AppColors.gold,
+                      size: 48,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  const Text(
+                    'REAL-TIME BOOKING',
+                    style: TextStyle(
+                      fontFamily: 'Hero',
+                      color: AppColors.gold,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 14,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Feature is coming soon.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Hero',
+                      color: isDark ? AppColors.ivory : Colors.black87,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                   Text(
+                    'We are integrating professional bullion exchanges to provide you with spot-on market rates and instant booking capabilities.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Hero',
+                      color: isDark ? AppColors.textMuted : Colors.black54,
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 60),
             Text(
               '* All rates are indicative of Kuber Gold Factory and Kuber Gold Bullion standards.',
               style: TextStyle(
