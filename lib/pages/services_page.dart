@@ -12,56 +12,52 @@ class ServicesPage extends StatelessWidget {
           _buildHero(context),
           _buildCategory(
             context,
-            'MILIGRAM DIGITAL SUITE',
-            'Digital tools for business transparency.',
+            'CORE BUSINESS',
+            'Primary jewelry and testing services.',
             true,
             [
               const _ServiceItem(
-                title: 'B2B Accounting',
-                desc: 'Specialized digital ledger systems designed for jewelry business transparency and financial precision.',
+                title: '1. Jewelry Deals',
+                desc: 'Exclusive wholesale and retail deals on high-precision jewelry products.',
               ),
               const _ServiceItem(
-                title: 'Buying & Selling',
-                desc: 'Streamlined digital platforms for wholesale transactions with real-time tracking.',
-              ),
-              const _ServiceItem(
-                title: 'Mortgage Solutions',
-                desc: 'Secure digital processing for gold-backed financial operations and secure SIP / FD tracking.',
+                title: '6. Jewelry Testing',
+                desc: 'Professional quality testing. Requests are settled within 24 hours.',
               ),
             ],
           ),
           _buildCategory(
             context,
-            'PHYSICAL SERVICES',
-            'Expert manufacturing and logistical solutions.',
+            'MILIGRAM DIGITAL & B2B',
+            'Digital tools and business management.',
             false,
             [
               const _ServiceItem(
-                title: 'Quality Manufacturing',
-                desc: 'Full-scale manufacturing setup and quality control for premium jewelry products.',
+                title: '7. Inventory Management',
+                desc: 'Specialized digital ledger and inventory tracking systems for jewelry businesses.',
               ),
               const _ServiceItem(
-                title: 'Repairing & Polishing',
-                desc: 'Expert restoration, deep cleaning, and high-gloss polishing for all jewelry types.',
+                title: '4. Mortgage (Upcoming)',
+                desc: 'Upcoming secure processing for gold-backed financial operations.',
               ),
               const _ServiceItem(
-                title: 'Doorstep Services',
-                desc: 'Secure, insured doorstep pickup and delivery for premium gold products and jewelry repairs.',
+                title: '2. SIP (Upcoming)',
+                desc: 'Strategic Investment Plans backed by physical gold assets (Coming Soon).',
               ),
             ],
           ),
           _buildCategory(
             context,
-            'FUTURE HORIZONS',
-            'Expanding the standards of excellence.',
+            'INDUSTRIAL HORIZONS',
+            'Scaling the future of gold production.',
             true,
             [
               const _ServiceItem(
-                title: 'Gold Refinery',
-                desc: 'Setting new benchmarks in metal purification and high-purity refinery services.',
+                title: '5. Refinery (Upcoming)',
+                desc: 'Industrial-grade metal purification and high-purity refinery services.',
               ),
               const _ServiceItem(
-                title: 'Bullion Services',
+                title: '3. Bullion (Upcoming)',
                 desc: 'Standardized bullion trading and secure investment-grade metal supply.',
               ),
             ],

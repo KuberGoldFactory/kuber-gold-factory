@@ -132,11 +132,15 @@ class HomePage extends StatelessWidget {
             runSpacing: 32,
             alignment: WrapAlignment.center,
             children: [
-              _EcosystemCard(
-                icon: Icons.factory_rounded,
-                isDark: isDark,
-                title: 'Kuber Factory',
-                desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
+              InkWell(
+                onTap: () => context.go('/vision'),
+                borderRadius: BorderRadius.circular(12),
+                child: _EcosystemCard(
+                  icon: Icons.factory_rounded,
+                  isDark: isDark,
+                  title: 'Kuber Factory',
+                  desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
+                ),
               ),
               _EcosystemCard(
                 icon: Icons.layers_rounded,

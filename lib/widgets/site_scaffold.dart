@@ -19,7 +19,6 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   static const _navItems = [
     ('Home', '/'),
     ('About', '/about'),
-    ('Services', '/services'),
     ('Gold Rates', '/gold-rates'),
     ('Dealer Network', '/dealer-network'),
     ('Contact', '/contact'),
@@ -79,13 +78,12 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                       _buildKubergLogo(context, isDark),
                       const Spacer(),
                       if (!isMobile) ...[
-                        ..._navItems.map(
-                          (item) => _NavLink(
-                            label: item.$1,
-                            route: item.$2,
-                            active: loc == item.$2,
-                          ),
-                        ),
+                        const _NavLink(label: 'Home', route: '/', active: false), // Placeholder logic for mapping
+                        _ServicesDropdown(active: loc.startsWith('/services')),
+                        _NavLink(label: 'About', route: '/about', active: loc == '/about'),
+                        _NavLink(label: 'Gold Rates', route: '/gold-rates', active: loc == '/gold-rates'),
+                        _NavLink(label: 'Dealer Network', route: '/dealer-network', active: loc == '/dealer-network'),
+                        _NavLink(label: 'Contact', route: '/contact', active: loc == '/contact'),
                         const SizedBox(width: 16),
                       ],
                       _PlayStoreButton(),
@@ -205,36 +203,43 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: _navItems.map((item) {
-                  final active = loc == item.$2;
-                  return InkWell(
-                    onTap: () {
-                      setState(() => _menuOpen = false);
-                      context.go(item.$2);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppColors.divider),
-                        ),
-                        color: active ? AppColors.gold.withOpacity(0.08) : Colors.transparent,
-                      ),
-                      child: Text(
-                        item.$1,
-                        style: GoogleFonts.inter(
-                          color: active ? AppColors.gold : AppColors.ivory,
-                          fontSize: 16,
-                          fontWeight: active ? FontWeight.w600 : FontWeight.w400,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
+                children: [
+                  ..._navItems.map((item) {
+                    final active = loc == item.$2;
+                    return _buildMobileNavItem(item.$1, item.$2, active);
+                  }),
+                  _buildMobileNavItem('SERVICES', '/services', loc.startsWith('/services')),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileNavItem(String label, String route, bool active) {
+    return InkWell(
+      onTap: () {
+        setState(() => _menuOpen = false);
+        context.go(route);
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: AppColors.divider),
+          ),
+          color: active ? AppColors.gold.withOpacity(0.08) : Colors.transparent,
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.inter(
+            color: active ? AppColors.gold : AppColors.ivory,
+            fontSize: 16,
+            fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+            letterSpacing: 1,
           ),
         ),
       ),
@@ -278,8 +283,16 @@ class _NavLink extends StatefulWidget {
   final String label;
   final String route;
   final bool active;
+  final bool isDropdown;
+  final VoidCallback? onTap;
 
-  const _NavLink({required this.label, required this.route, required this.active});
+  const _NavLink({
+    required this.label, 
+    required this.route, 
+    required this.active,
+    this.isDropdown = false,
+    this.onTap,
+  });
 
   @override
   State<_NavLink> createState() => _NavLinkState();
@@ -294,7 +307,7 @@ class _NavLinkState extends State<_NavLink> {
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: GestureDetector(
-        onTap: () => context.go(widget.route),
+        onTap: widget.onTap ?? () => context.go(widget.route),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -307,14 +320,27 @@ class _NavLinkState extends State<_NavLink> {
               ),
             ),
           ),
-          child: Text(
-            widget.label,
-            style: GoogleFonts.inter(
-              color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
-              fontSize: 13,
-              fontWeight: widget.active ? FontWeight.w600 : FontWeight.w400,
-              letterSpacing: 1.2,
-            ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.label,
+                style: GoogleFonts.inter(
+                  color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
+                  fontSize: 13,
+                  fontWeight: widget.active ? FontWeight.w600 : FontWeight.w400,
+                  letterSpacing: 1.2,
+                ),
+              ),
+              if (widget.isDropdown) ...[
+                const SizedBox(width: 4),
+                Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
+                  size: 14,
+                ),
+              ],
+            ],
           ),
         ),
       ),
@@ -567,6 +593,60 @@ class _CountdownUnit extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+class _ServicesDropdown extends StatelessWidget {
+  final bool active;
+  const _ServicesDropdown({required this.active});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return PopupMenuButton<String>(
+      onSelected: (value) {
+        if (!value.contains('Upcoming')) {
+          context.go('/services');
+        }
+      },
+      color: isDark ? AppColors.charcoal : Colors.white,
+      offset: const Offset(0, 40),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: AppColors.gold.withOpacity(0.2)),
+      ),
+      itemBuilder: (context) => [
+        _buildItem('1. Jewelry Deals'),
+        _buildItem('2. SIP (Upcoming)'),
+        _buildItem('3. Bullion (Upcoming)'),
+        _buildItem('4. Mortgage (Upcoming)'),
+        _buildItem('5. Refinery (Upcoming)'),
+        _buildItem('6. Jewelry Testing (Request settled in 24 hrs.)'),
+        _buildItem('7. Inventory Management (For Business)'),
+      ],
+      child: _NavLink(
+        label: 'SERVICES', 
+        route: '/services', 
+        active: active,
+        isDropdown: true,
+        onTap: () {}, // Do nothing, let PopupMenuButton handle it
+      ),
+    );
+  }
+
+  PopupMenuItem<String> _buildItem(String label) {
+    return PopupMenuItem<String>(
+      value: label,
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontFamily: 'Hero',
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.5,
+        ),
+      ),
     );
   }
 }
