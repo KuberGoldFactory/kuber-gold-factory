@@ -51,7 +51,7 @@ class ContactPage extends StatelessWidget {
     
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: isDark ? AppColors.charcoal : Colors.white,
+      color: isDark ? AppColors.charcoal : AppColors.ivory,
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1000),
@@ -134,6 +134,7 @@ class ContactPage extends StatelessWidget {
                           'SUBMIT INQUIRY',
                           style: TextStyle(
                             fontFamily: 'Hero',
+                            color: Colors.black,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 2,
                             fontSize: 15,
@@ -179,7 +180,7 @@ class ContactPage extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontFamily: 'Hero',
-                    color: isDark ? AppColors.ivory : Colors.black87,
+                    color: isDark ? AppColors.ivory : Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w900,
                   ),
@@ -189,7 +190,7 @@ class ContactPage extends StatelessWidget {
                   content,
                   style: TextStyle(
                     fontFamily: 'Hero',
-                    color: isDark ? AppColors.textMain : Colors.black54,
+                    color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -207,14 +208,14 @@ class ContactPage extends StatelessWidget {
       maxLines: maxLines,
       style: TextStyle(
         fontFamily: 'Hero',
-        color: isDark ? Colors.white : Colors.black87,
+        color: isDark ? Colors.white : Colors.black,
         fontSize: 15,
       ),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(
           fontFamily: 'Hero',
-          color: isDark ? AppColors.textMuted : Colors.black45,
+          color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.6),
           fontSize: 13,
         ),
         enabledBorder: OutlineInputBorder(

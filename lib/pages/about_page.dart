@@ -44,7 +44,7 @@ class AboutPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Hero',
-                color: isDark ? AppColors.ivory : Colors.black87,
+                color: isDark ? AppColors.ivory : Colors.black,
                 fontSize: 48,
                 fontWeight: FontWeight.w900,
                 letterSpacing: -0.5,
@@ -73,7 +73,7 @@ class AboutPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Hero',
-                  color: isDark ? AppColors.textMain : Colors.black87,
+                  color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.8),
                   fontSize: 18,
                   height: 1.8,
                   fontWeight: FontWeight.w400,
@@ -91,7 +91,7 @@ class AboutPage extends StatelessWidget {
     
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: isDark ? AppColors.obsidian : Colors.white,
+      color: isDark ? AppColors.obsidian : AppColors.ivory,
       child: Column(
         children: [
           const Text(
@@ -120,7 +120,7 @@ class AboutPage extends StatelessWidget {
                 isDark: isDark,
                 title: 'Miligram Arm',
                 subtitle: 'Digital Supply Chain',
-                desc: 'Specialized digital tools for B2B accounting, secure logistics, and future drone-based delivery services.',
+                desc: 'Specialized digital tools for B2B accounting, secure logistics, and highly efficient doorstep delivery services.',
               ),
             ],
           ),
@@ -189,7 +189,7 @@ class _SynergyCard extends StatelessWidget {
             desc,
             style: TextStyle(
               fontFamily: 'Hero',
-              color: isDark ? AppColors.textMain : Colors.black54,
+              color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
               fontSize: 16,
               height: 1.7,
               fontWeight: FontWeight.w400,

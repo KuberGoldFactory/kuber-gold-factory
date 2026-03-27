@@ -45,8 +45,8 @@ class ServicesPage extends StatelessWidget {
                 desc: 'Precision metal restoration and expert jewelry repairing services.',
               ),
               const _ServiceItem(
-                title: 'Drone Delivery',
-                desc: 'Upcoming 1km range secure drone service for instantaneous door-to-door jewelry delivery.',
+                title: 'Doorstep Services',
+                desc: 'Secure, insured doorstep pickup and delivery for premium gold products and jewelry repairs.',
               ),
             ],
           ),
@@ -99,7 +99,7 @@ class ServicesPage extends StatelessWidget {
     if (isDark) {
       bgColor = altBackground ? AppColors.charcoal : AppColors.obsidian;
     } else {
-      bgColor = altBackground ? Colors.black.withOpacity(0.02) : Colors.white;
+      bgColor = altBackground ? AppColors.ivory.withOpacity(0.5) : AppColors.ivory;
     }
 
     return Container(
@@ -125,7 +125,7 @@ class ServicesPage extends StatelessWidget {
                 subtitle,
                 style: TextStyle(
                   fontFamily: 'Hero',
-                  color: isDark ? AppColors.textMuted : Colors.black54,
+                  color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.6),
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
                 ),
@@ -190,7 +190,7 @@ class _ServiceItem extends StatelessWidget {
             desc,
             style: TextStyle(
               fontFamily: 'Hero',
-              color: isDark ? AppColors.textMain : Colors.black54,
+              color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
               fontSize: 15,
               height: 1.6,
               fontWeight: FontWeight.w400,

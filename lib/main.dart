@@ -71,7 +71,7 @@ class KuberGoldFactoryApp extends StatelessWidget {
       fontFamily: 'Hero',
       textTheme: baseTheme.textTheme.apply(
         fontFamily: 'Hero',
-        bodyColor: isDark ? AppColors.textMain : Colors.black87,
+        bodyColor: isDark ? AppColors.textMain : Colors.black,
         displayColor: isDark ? AppColors.ivory : Colors.black,
       ),
     );

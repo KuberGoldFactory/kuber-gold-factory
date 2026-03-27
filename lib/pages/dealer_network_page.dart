@@ -39,11 +39,11 @@ class DealerNetworkPage extends StatelessWidget {
             Container(
               constraints: const BoxConstraints(maxWidth: 800),
               child: Text(
-                'Our B2B dealer network operates on the Miligram digital supply chain, ensuring real-time inventory tracking, secure accounting, and upcoming drone-assisted local logistics.',
+                'Our B2B dealer network operates on the Miligram digital supply chain, ensuring real-time inventory tracking, secure accounting, and streamlined local logistics.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Hero',
-                  color: isDark ? AppColors.textMuted : Colors.black54,
+                  color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.6),
                   fontSize: 16,
                   height: 1.7,
                   fontWeight: FontWeight.w400,
@@ -101,7 +101,7 @@ class _NetworkHub extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Hero',
-              color: isDark ? AppColors.ivory : Colors.black87,
+              color: isDark ? AppColors.ivory : Colors.black,
               fontSize: 20,
               fontWeight: FontWeight.w900,
             ),
@@ -112,7 +112,7 @@ class _NetworkHub extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Hero',
-              color: isDark ? AppColors.textMain : Colors.black54,
+              color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),

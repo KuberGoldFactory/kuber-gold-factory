@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
@@ -149,7 +150,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 style: TextStyle(
                   fontFamily: 'Hero',
                   color: isDark ? AppColors.ivory : Colors.black87,
-                  fontSize: 26 * 0.9,
+                  fontSize: 22 * 0.9,
                   fontWeight: FontWeight.w400,
                   letterSpacing: -0.5,
                 ),
@@ -159,7 +160,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 style: TextStyle(
                   fontFamily: 'Hero',
                   color: AppColors.gold,
-                  fontSize: 26,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -170,9 +171,9 @@ class _SiteScaffoldState extends State<SiteScaffold> {
             style: TextStyle(
               fontFamily: 'Hero',
               color: AppColors.gold.withOpacity(0.9),
-              fontSize: 10,
+              fontSize: 8,
               fontWeight: FontWeight.w900,
-              letterSpacing: 4.5,
+              letterSpacing: 4,
             ),
           ),
         ],
@@ -219,8 +220,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                       ),
                       child: Text(
                         item.$1,
-                        style: TextStyle(
-                          fontFamily: 'Hero',
+                        style: GoogleFonts.inter(
                           color: active ? AppColors.gold : AppColors.ivory,
                           fontSize: 16,
                           fontWeight: active ? FontWeight.w600 : FontWeight.w400,
@@ -306,5 +306,16 @@ class _NavLinkState extends State<_NavLink> {
           ),
           child: Text(
             widget.label,
+            style: GoogleFonts.inter(
+              color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
+              fontSize: 13,
+              fontWeight: widget.active ? FontWeight.w600 : FontWeight.w400,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 

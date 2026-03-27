@@ -73,11 +73,11 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                'FROM FACTORY PRECISION TO DRONE DELIVERY',
+                'FROM FACTORY PRECISION TO DOORSTEP SERVICES',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Hero',
-                  color: isDark ? AppColors.textMuted : Colors.black54,
+                  color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.6),
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 4,
@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
     
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: isDark ? AppColors.charcoal : Colors.white,
+      color: isDark ? AppColors.charcoal : AppColors.ivory,
       child: Column(
         children: [
           const Text(
@@ -145,10 +145,10 @@ class HomePage extends StatelessWidget {
                 desc: 'Digital tools for B2B accounting, secure supply chain management, and wealth services.',
               ),
               _EcosystemCard(
-                icon: Icons.auto_mode_rounded,
+                icon: Icons.delivery_dining_rounded,
                 isDark: isDark,
-                title: 'Drone Delivery',
-                desc: 'Future-forward 1km range drone service for seamless, secure door-to-door jewelry logistics.',
+                title: 'Doorstep Services',
+                desc: 'Secure, insured doorstep pickup and delivery for premium gold products and repair services.',
               ),
             ],
           ),
@@ -207,7 +207,7 @@ class _EcosystemCard extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Hero',
-              color: isDark ? AppColors.textMain : Colors.black54,
+              color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
               fontSize: 15,
               height: 1.6,
               fontWeight: FontWeight.w400,
