@@ -181,24 +181,33 @@ class _SiteScaffoldState extends State<SiteScaffold> {
       ),
       child: SafeArea(
         bottom: false,
-        child: Row(
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            _buildKubergLogo(context, isDark, scale: 0.8),
-            const Spacer(),
+            // Centered title
             Text(
-              isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+              isHome ? '{ कुबेर गोल्ड फॅक्टरी }' : '{ $title }',
               style: TextStyle(
-                fontFamily: isHome ? 'Mahamaya' : 'Hero',
+                fontFamily: isHome ? 'ShreeLipi' : 'Hero',
                 color: AppColors.gold,
-                fontSize: isHome ? 18 : 12,
+                fontSize: isHome ? 18 : 13,
                 fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
               ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(width: 8),
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+            // Logo on left
+            Align(
+              alignment: Alignment.centerLeft,
+              child: _buildKubergLogo(context, isDark, scale: 0.8),
+            ),
+            // Hamburger on right
+            Align(
+              alignment: Alignment.centerRight,
+              child: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
               ),
             ),
           ],
@@ -214,19 +223,19 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
       color: isDark ? AppColors.obsidian : AppColors.ivory,
-      child: Row(
+      child: Stack(
+        alignment: Alignment.center,
         children: [
           Text(
-            isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+            isHome ? '{ कुबेर गोल्ड फॅक्टरी }' : '{ $title }',
             style: TextStyle(
-              fontFamily: isHome ? 'Mahamaya' : 'Hero',
+              fontFamily: isHome ? 'ShreeLipi' : 'Hero',
               color: AppColors.gold,
-              fontSize: isHome ? 32 : 18,
+              fontSize: isHome ? 36 : 18,
               fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
               letterSpacing: isHome ? 1 : 2,
             ),
           ),
-          const Spacer(),
           // Possibly add some top bar actions here later if needed
         ],
       ),

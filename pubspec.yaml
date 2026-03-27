@@ -82,3 +82,7 @@ flutter:
     - family: Mahamaya
       fonts:
         - asset: assets/fonts/Mahamaya.otf
+
+    - family: ShreeLipi
+      fonts:
+        - asset: assets/fonts/shreelipi.TTF
