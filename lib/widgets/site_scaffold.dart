@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
@@ -220,7 +219,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                       ),
                       child: Text(
                         item.$1,
-                        style: GoogleFonts.inter(
+                        style: TextStyle(
+                          fontFamily: 'Hero',
                           color: active ? AppColors.gold : AppColors.ivory,
                           fontSize: 16,
                           fontWeight: active ? FontWeight.w600 : FontWeight.w400,
@@ -306,16 +306,5 @@ class _NavLinkState extends State<_NavLink> {
           ),
           child: Text(
             widget.label,
-            style: GoogleFonts.inter(
-              color: widget.active ? AppColors.gold : (_hovered ? AppColors.ivory : AppColors.textMuted),
-              fontSize: 13,
-              fontWeight: widget.active ? FontWeight.w600 : FontWeight.w400,
-              letterSpacing: 1.2,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
