@@ -13,7 +13,6 @@ class SiteScaffold extends StatefulWidget {
 }
 
 class _SiteScaffoldState extends State<SiteScaffold> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _menuOpen = false;
 
   static const _navItems = [
@@ -31,7 +30,6 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
       drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
       body: Row(
@@ -42,7 +40,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               children: [
                 Column(
                   children: [
-                    if (isMobile) _buildMobileHeader(context, loc, isDark),
+                    if (isMobile) _buildMobileHeader(context, loc, isDark) else _buildDesktopHeader(context, loc, isDark),
                     Expanded(
                       child: ClipRRect(
                         // Give content a slight rounded feel like the reference
@@ -172,7 +170,9 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   }
 
   Widget _buildMobileHeader(BuildContext context, String loc, bool isDark) {
+    final isHome = loc == '/';
     final title = _navItems.firstWhere((item) => item.$2 == loc, orElse: () => _navItems.first).$1;
+    
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -183,24 +183,52 @@ class _SiteScaffoldState extends State<SiteScaffold> {
         bottom: false,
         child: Row(
           children: [
-            _buildKubergLogo(context, isDark),
+            _buildKubergLogo(context, isDark, scale: 0.8),
             const Spacer(),
             Text(
-              '{ $title }',
-              style: const TextStyle(
-                fontFamily: 'Hero',
+              isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+              style: TextStyle(
+                fontFamily: isHome ? 'Mahamaya' : 'Hero',
                 color: AppColors.gold,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
+                fontSize: isHome ? 18 : 12,
+                fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
               ),
             ),
             const SizedBox(width: 8),
-            IconButton(
-              icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
-              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopHeader(BuildContext context, String loc, bool isDark) {
+    final isHome = loc == '/';
+    final title = _navItems.firstWhere((item) => item.$2 == loc, orElse: () => _navItems.first).$1;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+      color: isDark ? AppColors.obsidian : AppColors.ivory,
+      child: Row(
+        children: [
+          Text(
+            isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+            style: TextStyle(
+              fontFamily: isHome ? 'Mahamaya' : 'Hero',
+              color: AppColors.gold,
+              fontSize: isHome ? 32 : 18,
+              fontWeight: isHome ? FontWeight.normal : FontWeight.w700,
+              letterSpacing: isHome ? 1 : 2,
+            ),
+          ),
+          const Spacer(),
+          // Possibly add some top bar actions here later if needed
+        ],
       ),
     );
   }
@@ -245,7 +273,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildKubergLogo(BuildContext context, bool isDark) {
+  Widget _buildKubergLogo(BuildContext context, bool isDark, {double scale = 1.0}) {
+    final baseFontSize = 28.0 * scale; // Increased base size from 22
     return GestureDetector(
       onTap: () => context.go('/'),
       child: Column(
@@ -262,17 +291,17 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 style: TextStyle(
                   fontFamily: 'Hero',
                   color: isDark ? AppColors.ivory : Colors.black87,
-                  fontSize: 22 * 0.9,
+                  fontSize: baseFontSize * 0.9,
                   fontWeight: FontWeight.w400,
                   letterSpacing: -0.5,
                 ),
               ),
-              const Text(
+              Text(
                 'g',
                 style: TextStyle(
                   fontFamily: 'Hero',
                   color: AppColors.gold,
-                  fontSize: 22,
+                  fontSize: baseFontSize,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -283,9 +312,9 @@ class _SiteScaffoldState extends State<SiteScaffold> {
             style: TextStyle(
               fontFamily: 'Hero',
               color: AppColors.gold.withOpacity(0.9),
-              fontSize: 8,
+              fontSize: baseFontSize * 0.36, // Scaled with base size
               fontWeight: FontWeight.w900,
-              letterSpacing: 4,
+              letterSpacing: 4 * scale,
             ),
           ),
         ],

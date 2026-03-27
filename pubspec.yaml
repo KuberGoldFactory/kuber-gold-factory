@@ -78,3 +78,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/HeroLight.otf
           weight: 300
+
+    - family: Mahamaya
+      fonts:
+        - asset: assets/fonts/Mahamaya.otf
