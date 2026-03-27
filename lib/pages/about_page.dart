@@ -29,22 +29,23 @@ class AboutPage extends StatelessWidget {
           children: [
             Text(
               'OUR VISION',
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.heebo(
                 color: AppColors.gold,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
                 letterSpacing: 4,
               ),
             ),
             const SizedBox(height: 24),
             Text(
-              'A Unified Ecosystem\nfor the Modern Age',
+              'A UNIFIED ECOSYSTEM\nFOR THE MODERN AGE',
               textAlign: TextAlign.center,
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.heebo(
                 color: AppColors.ivory,
                 fontSize: 48,
                 fontWeight: FontWeight.w900,
-                height: 1.2,
+                letterSpacing: -0.5,
+                height: 1.1,
               ),
             ),
           ],
@@ -65,10 +66,11 @@ class AboutPage extends StatelessWidget {
               Text(
                 'Kuber Gold Factory is the face of industrial excellence and product quality. Our motive is to refine the bridge between traditional manufacturing and futuristic technology. By integrating Kuber\'s production power with Miligram\'s digital intelligence, we are creating a seamless supply chain from factory to doorstep.',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.heebo(
                   color: AppColors.textMain,
                   fontSize: 18,
                   height: 1.8,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -86,17 +88,17 @@ class AboutPage extends StatelessWidget {
         children: [
           Text(
             'THE SYNERGY',
-            style: GoogleFonts.playfairDisplay(
+            style: GoogleFonts.heebo(
               color: AppColors.gold,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              fontWeight: FontWeight.w900,
               letterSpacing: 4,
             ),
           ),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 40,
-            runSpacing: 40,
+            spacing: 32,
+            runSpacing: 32,
             alignment: WrapAlignment.center,
             children: [
               _SynergyCard(
@@ -130,38 +132,47 @@ class _SynergyCard extends StatelessWidget {
       width: 450,
       padding: const EdgeInsets.all(48),
       decoration: BoxDecoration(
-        color: AppColors.darkCard,
-        border: Border.all(color: AppColors.gold.withOpacity(0.05)),
-        borderRadius: BorderRadius.circular(4),
+        color: AppColors.gold.withOpacity(0.04),
+        border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.gold,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.gold.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              subtitle.toUpperCase(),
+              style: GoogleFonts.heebo(
+                color: AppColors.gold,
+                fontSize: 10,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1,
+              ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           Text(
-            subtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textMuted,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1,
+            title,
+            style: GoogleFonts.heebo(
+              color: AppColors.ivory,
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
             ),
           ),
           const SizedBox(height: 24),
           Text(
             desc,
-            style: GoogleFonts.inter(
+            style: GoogleFonts.heebo(
               color: AppColors.textMain,
-              fontSize: 15,
-              height: 1.6,
+              fontSize: 16,
+              height: 1.7,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -169,4 +180,5 @@ class _SynergyCard extends StatelessWidget {
     );
   }
 }
+
 

@@ -14,21 +14,22 @@ class DealerNetworkPage extends StatelessWidget {
           children: [
             Text(
               'SUPPLY CHAIN NETWORK',
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.heebo(
                 color: AppColors.gold,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
                 letterSpacing: 4,
               ),
             ),
             const SizedBox(height: 24),
             Text(
               'POWERED BY MILIGRAM',
-              style: GoogleFonts.playfairDisplay(
+              textAlign: TextAlign.center,
+              style: GoogleFonts.heebo(
                 color: AppColors.ivory,
                 fontSize: 48,
                 fontWeight: FontWeight.w900,
-                letterSpacing: 2,
+                letterSpacing: -0.5,
               ),
             ),
             const SizedBox(height: 40),
@@ -37,17 +38,18 @@ class DealerNetworkPage extends StatelessWidget {
               child: Text(
                 'Our B2B dealer network operates on the Miligram digital supply chain, ensuring real-time inventory tracking, secure accounting, and upcoming drone-assisted local logistics.',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.heebo(
                   color: AppColors.textMuted,
                   fontSize: 16,
-                  height: 1.6,
+                  height: 1.7,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
             const SizedBox(height: 80),
             Wrap(
-              spacing: 40,
-              runSpacing: 40,
+              spacing: 32,
+              runSpacing: 32,
               alignment: WrapAlignment.center,
               children: [
                 _NetworkHub(city: 'Manufacturing Hub', address: 'Akot Factory Setup'),
@@ -72,31 +74,40 @@ class _NetworkHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 280,
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.darkCard,
-        border: Border.all(color: AppColors.gold.withOpacity(0.1)),
-        borderRadius: BorderRadius.circular(4),
+        color: AppColors.gold.withOpacity(0.04),
+        border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
-          Icon(Icons.hub_outlined, color: AppColors.gold, size: 32),
-          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.gold.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.hub_rounded, color: AppColors.gold, size: 28),
+          ),
+          const SizedBox(height: 24),
           Text(
             city,
-            style: GoogleFonts.playfairDisplay(
+            textAlign: TextAlign.center,
+            style: GoogleFonts.heebo(
               color: AppColors.ivory,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 12),
           Text(
             address,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
+            style: GoogleFonts.heebo(
               color: AppColors.textMain,
               fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -104,4 +115,5 @@ class _NetworkHub extends StatelessWidget {
     );
   }
 }
+
 

@@ -33,11 +33,11 @@ class ContactPage extends StatelessWidget {
       child: Center(
         child: Text(
           'CONNECT WITH US',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.heebo(
             color: AppColors.ivory,
             fontSize: 48,
             fontWeight: FontWeight.w900,
-            letterSpacing: 4,
+            letterSpacing: 2,
           ),
         ),
       ),
@@ -64,10 +64,10 @@ class ContactPage extends StatelessWidget {
                   children: [
                     Text(
                       'DIRECT SUPPORT',
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.heebo(
                         color: AppColors.gold,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
                         letterSpacing: 4,
                       ),
                     ),
@@ -97,10 +97,10 @@ class ContactPage extends StatelessWidget {
                   children: [
                     Text(
                       'SEND AN INQUIRY',
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.heebo(
                         color: AppColors.gold,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
                         letterSpacing: 4,
                       ),
                     ),
@@ -119,13 +119,15 @@ class ContactPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.gold,
                           foregroundColor: Colors.black,
-                          shape: const RoundedRectangleBorder(),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
                         child: Text(
                           'SUBMIT INQUIRY',
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
+                          style: GoogleFonts.heebo(
+                            fontWeight: FontWeight.w900,
                             letterSpacing: 2,
+                            fontSize: 15,
                           ),
                         ),
                       ),
@@ -143,32 +145,42 @@ class ContactPage extends StatelessWidget {
   Widget _buildContactMethod({required IconData icon, required String title, required String content, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.gold, size: 32),
-          const SizedBox(width: 24),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.playfairDisplay(
-                  color: AppColors.ivory,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.gold.withOpacity(0.04),
+          border: Border.all(color: AppColors.gold.withOpacity(0.1)),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: AppColors.gold, size: 28),
+            const SizedBox(width: 24),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.heebo(
+                    color: AppColors.ivory,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                content,
-                style: GoogleFonts.inter(
-                  color: AppColors.textMuted,
-                  fontSize: 15,
+                const SizedBox(height: 4),
+                Text(
+                  content,
+                  style: GoogleFonts.heebo(
+                    color: AppColors.textMain,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -176,20 +188,24 @@ class ContactPage extends StatelessWidget {
   Widget _buildTextField(String label, {int maxLines = 1}) {
     return TextField(
       maxLines: maxLines,
-      style: const TextStyle(color: Colors.white),
+      style: GoogleFonts.heebo(color: Colors.white, fontSize: 15),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: AppColors.textMuted),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.charcoal),
+        labelStyle: GoogleFonts.heebo(color: AppColors.textMuted, fontSize: 13),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.gold.withOpacity(0.15)),
+          borderRadius: BorderRadius.circular(8),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.gold),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.gold),
+          borderRadius: BorderRadius.circular(8),
         ),
         filled: true,
-        fillColor: AppColors.darkCard,
+        fillColor: AppColors.gold.withOpacity(0.04),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
     );
   }
 }
+
 

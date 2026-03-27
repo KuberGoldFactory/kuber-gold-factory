@@ -77,11 +77,11 @@ class ServicesPage extends StatelessWidget {
       child: Center(
         child: Text(
           'OUR SERVICES',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.heebo(
             color: AppColors.ivory,
             fontSize: 48,
             fontWeight: FontWeight.w900,
-            letterSpacing: 4,
+            letterSpacing: 2,
           ),
         ),
       ),
@@ -99,25 +99,26 @@ class ServicesPage extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: GoogleFonts.playfairDisplay(
+                style: GoogleFonts.heebo(
                   color: AppColors.gold,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w900,
                   letterSpacing: 4,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
                 subtitle,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.heebo(
                   color: AppColors.textMuted,
-                  fontSize: 16,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               const SizedBox(height: 60),
               Wrap(
-                spacing: 40,
-                runSpacing: 40,
+                spacing: 32,
+                runSpacing: 32,
                 alignment: WrapAlignment.center,
                 children: items,
               ),
@@ -139,36 +140,41 @@ class _ServiceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.darkCard,
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: AppColors.gold.withOpacity(0.05)),
+        color: AppColors.gold.withOpacity(0.04),
+        border: Border.all(color: AppColors.gold.withOpacity(0.12)),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 40,
-            height: 2,
-            color: AppColors.gold,
+            width: 32,
+            height: 4,
+            decoration: BoxDecoration(
+              color: AppColors.gold,
+              borderRadius: BorderRadius.circular(2),
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           Text(
             title,
-            style: GoogleFonts.playfairDisplay(
+            style: GoogleFonts.heebo(
               color: AppColors.ivory,
               fontSize: 22,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             desc,
-            style: GoogleFonts.inter(
+            style: GoogleFonts.heebo(
               color: AppColors.textMain,
-              fontSize: 14,
+              fontSize: 15,
               height: 1.6,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -176,4 +182,5 @@ class _ServiceItem extends StatelessWidget {
     );
   }
 }
+
 

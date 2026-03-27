@@ -40,10 +40,10 @@ class HomePage extends StatelessWidget {
             children: [
               Text(
                 'THE KUBER ECOSYSTEM',
-                style: GoogleFonts.playfairDisplay(
-                  color: AppColors.gold,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                style: GoogleFonts.heebo(
+                  color: AppColors.gold.withOpacity(0.8),
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 8,
                 ),
               ),
@@ -51,29 +51,32 @@ class HomePage extends StatelessWidget {
               Text(
                 'MANUFACTURING EXCELLENCE\nMEETS DIGITAL INNOVATION',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.playfairDisplay(
+                style: GoogleFonts.heebo(
                   color: AppColors.ivory,
                   fontSize: 48,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 2,
-                  height: 1.2,
+                  letterSpacing: -0.5,
+                  height: 1.1,
                 ),
               ),
               const SizedBox(height: 32),
               Container(
-                width: 80,
-                height: 2,
-                color: AppColors.gold,
+                width: 60,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: AppColors.gold,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
               const SizedBox(height: 32),
               Text(
                 'FROM FACTORY PRECISION TO DRONE DELIVERY',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.heebo(
                   color: AppColors.textMuted,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 6,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 4,
                 ),
               ),
               const SizedBox(height: 48),
@@ -82,10 +85,11 @@ class HomePage extends StatelessWidget {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppColors.gold),
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                 ),
                 child: Text(
                   'DISCOVER THE VISION',
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.heebo(
                     color: AppColors.gold,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,
@@ -107,31 +111,31 @@ class HomePage extends StatelessWidget {
         children: [
           Text(
             'CORE PILLARS',
-            style: GoogleFonts.playfairDisplay(
+            style: GoogleFonts.heebo(
               color: AppColors.gold,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              fontWeight: FontWeight.w900,
               letterSpacing: 4,
             ),
           ),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 40,
-            runSpacing: 40,
+            spacing: 32,
+            runSpacing: 32,
             alignment: WrapAlignment.center,
             children: [
               _EcosystemCard(
-                icon: Icons.factory_outlined,
+                icon: Icons.factory_rounded,
                 title: 'Kuber Factory',
                 desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
               ),
               _EcosystemCard(
-                icon: Icons.app_registration_outlined,
+                icon: Icons.layers_rounded,
                 title: 'Miligram App',
                 desc: 'Digital tools for B2B accounting, secure supply chain management, and wealth services.',
               ),
               _EcosystemCard(
-                icon: Icons.airplanemode_active_outlined,
+                icon: Icons.auto_mode_rounded,
                 title: 'Drone Delivery',
                 desc: 'Future-forward 1km range drone service for seamless, secure door-to-door jewelry logistics.',
               ),
@@ -156,30 +160,38 @@ class _EcosystemCard extends StatelessWidget {
       width: 320,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppColors.darkCard,
-        border: Border.all(color: AppColors.gold.withOpacity(0.1)),
-        borderRadius: BorderRadius.circular(4),
+        color: AppColors.gold.withOpacity(0.04),
+        border: Border.all(color: AppColors.gold.withOpacity(0.15)),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
-          Icon(icon, color: AppColors.gold, size: 48),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.gold.withOpacity(0.08),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: AppColors.gold, size: 32),
+          ),
           const SizedBox(height: 32),
           Text(
             title,
-            style: GoogleFonts.playfairDisplay(
+            style: GoogleFonts.heebo(
               color: AppColors.ivory,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 20),
           Text(
             desc,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              color: AppColors.textMuted,
+            style: GoogleFonts.heebo(
+              color: AppColors.textMain,
               fontSize: 15,
               height: 1.6,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -187,4 +199,5 @@ class _EcosystemCard extends StatelessWidget {
     );
   }
 }
+
 

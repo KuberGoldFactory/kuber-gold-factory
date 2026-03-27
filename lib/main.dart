@@ -49,7 +49,12 @@ class KuberGoldFactoryApp extends StatelessWidget {
           secondary: AppColors.goldLight,
           surface: AppColors.charcoal,
         ),
-        textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+        // Use Heebo as the "Miligram Hero" substitute
+        textTheme: GoogleFonts.heeboTextTheme(ThemeData.dark().textTheme).copyWith(
+          displayLarge: GoogleFonts.heebo(fontWeight: FontWeight.w900),
+          headlineLarge: GoogleFonts.heebo(fontWeight: FontWeight.w800),
+          titleLarge: GoogleFonts.heebo(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -66,4 +71,9 @@ class AppColors {
   static const Color textMain = Color(0xFFE0E0E0);
   static const Color textMuted = Color(0xFF888888);
   static const Color divider = Color(0xFF2A2A2A);
+
+  // Semantic Colors from Miligram
+  static const Color success = Color(0xFF4CAF50); // Green
+  static const Color debt = Color(0xFF2196F3);    // Blue
+  static const Color credit = Color(0xFFF44336);  // Red
 }

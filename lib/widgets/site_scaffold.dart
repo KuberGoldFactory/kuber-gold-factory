@@ -47,6 +47,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   }
 
   Widget _buildNavBar(BuildContext context, String loc, bool isMobile) {
+    final title = _navItems.firstWhere((item) => item.$2 == loc, orElse: () => _navItems.first).$1;
+    
     return Container(
       decoration: BoxDecoration(
         color: AppColors.obsidian.withOpacity(0.95),
@@ -65,27 +67,43 @@ class _SiteScaffoldState extends State<SiteScaffold> {
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-          child: Row(
+          child: Column(
             children: [
-              _buildLogo(context),
-              const Spacer(),
-              if (isMobile)
-                IconButton(
-                  icon: Icon(
-                    _menuOpen ? Icons.close : Icons.menu,
-                    color: AppColors.gold,
-                    size: 28,
-                  ),
-                  onPressed: () => setState(() => _menuOpen = !_menuOpen),
-                )
-              else
-                ..._navItems.map(
-                  (item) => _NavLink(
-                    label: item.$1,
-                    route: item.$2,
-                    active: loc == item.$2,
+              Row(
+                children: [
+                  _buildKubergLogo(context),
+                  const Spacer(),
+                  if (isMobile)
+                    IconButton(
+                      icon: Icon(
+                        _menuOpen ? Icons.close : Icons.menu,
+                        color: AppColors.gold,
+                        size: 28,
+                      ),
+                      onPressed: () => setState(() => _menuOpen = !_menuOpen),
+                    )
+                  else
+                    ..._navItems.map(
+                      (item) => _NavLink(
+                        label: item.$1,
+                        route: item.$2,
+                        active: loc == item.$2,
+                      ),
+                    ),
+                ],
+              ),
+              if (!isMobile) ...[
+                const SizedBox(height: 10),
+                Text(
+                  '{ $title }',
+                  style: GoogleFonts.heebo(
+                    color: AppColors.gold.withOpacity(0.9),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
                   ),
                 ),
+              ],
             ],
           ),
         ),
@@ -93,64 +111,46 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildLogo(BuildContext context) {
+  Widget _buildKubergLogo(BuildContext context) {
     return GestureDetector(
       onTap: () => context.go('/'),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
         children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: const LinearGradient(
-                colors: [AppColors.gold, AppColors.goldDark],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.gold.withOpacity(0.4),
-                  blurRadius: 12,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: Center(
-              child: Text(
-                'K',
-                style: GoogleFonts.playfairDisplay(
-                  color: AppColors.obsidian,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+          Text(
+            'kuber',
+            style: GoogleFonts.heebo(
+              color: AppColors.ivory,
+              fontSize: 22 * 0.9,
+              fontWeight: FontWeight.normal,
+              letterSpacing: -0.5,
             ),
           ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'KUBER GOLD',
-                style: GoogleFonts.playfairDisplay(
-                  color: AppColors.gold,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 3,
-                ),
-              ),
-              Text(
-                'FACTORY',
-                style: GoogleFonts.inter(
-                  color: AppColors.textMuted,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 4,
-                ),
-              ),
-            ],
+          Text(
+            'g',
+            style: GoogleFonts.heebo(
+              color: AppColors.gold,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            height: 12,
+            width: 1,
+            color: AppColors.gold.withOpacity(0.3),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            'FACTORY',
+            style: GoogleFonts.inter(
+              color: AppColors.textMuted,
+              fontSize: 10,
+              fontWeight: FontWeight.w300,
+              letterSpacing: 4,
+            ),
           ),
         ],
       ),
