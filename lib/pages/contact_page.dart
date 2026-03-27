@@ -6,58 +6,129 @@ import '../main.dart';
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
+  Future<void> _launchWhatsApp() async {
+    final url = Uri.parse('https://wa.me/919922965494');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
-        child: Center(
-          child: Column(
+      child: Column(
+        children: [
+          _buildHero(),
+          _buildContactContent(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHero() {
+    return Container(
+      height: 300,
+      width: double.infinity,
+      color: AppColors.obsidian,
+      child: Center(
+        child: Text(
+          'CONNECT WITH US',
+          style: GoogleFonts.playfairDisplay(
+            color: AppColors.ivory,
+            fontSize: 48,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 4,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContactContent(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
+      color: AppColors.charcoal,
+      child: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: Wrap(
+            spacing: 80,
+            runSpacing: 60,
+            alignment: WrapAlignment.center,
             children: [
-              Text(
-                'CONTACT US',
-                style: GoogleFonts.playfairDisplay(
-                  color: AppColors.gold,
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 60),
-              Container(
-                constraints: const BoxConstraints(maxWidth: 600),
-                padding: const EdgeInsets.all(48),
-                decoration: BoxDecoration(
-                  color: AppColors.charcoal,
-                  border: Border.all(color: AppColors.gold.withOpacity(0.5)),
-                ),
+              // Contact Methods
+              SizedBox(
+                width: 400,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ready to discuss your requirements? Reach out to us directly for personalized service.',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColors.ivory,
-                        fontSize: 18,
-                        height: 1.6,
+                      'DIRECT SUPPORT',
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.gold,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 4,
                       ),
                     ),
-                    const SizedBox(height: 48),
-                    _ContactLink(
-                      icon: Icons.call_rounded,
-                      label: '+91 98765 43210',
-                      onTap: () => launchUrl(Uri.parse('tel:+919876543210')),
+                    const SizedBox(height: 40),
+                    _buildContactMethod(
+                      icon: Icons.chat_bubble_outline_rounded,
+                      title: 'WhatsApp Chat',
+                      content: '+91 9922965494',
+                      onTap: _launchWhatsApp,
                     ),
-                    const SizedBox(height: 24),
-                    _ContactLink(
-                      icon: Icons.email_rounded,
-                      label: 'info@kubergoldfactory.com',
-                      onTap: () => launchUrl(Uri.parse('mailto:info@kubergoldfactory.com')),
-                    ),
-                    const SizedBox(height: 24),
-                    _ContactLink(
-                      icon: Icons.location_on_rounded,
-                      label: '123 Industrial Hub, Mumbai, India',
+                    const SizedBox(height: 40),
+                    _buildContactMethod(
+                      icon: Icons.location_on_outlined,
+                      title: 'Factory Location',
+                      content: 'Akot, Dist. Akola, Maharashtra',
                       onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+
+              // Inquiry Form
+              SizedBox(
+                width: 450,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'SEND AN INQUIRY',
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.gold,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 4,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    _buildTextField('Your Name'),
+                    const SizedBox(height: 20),
+                    _buildTextField('Email Address'),
+                    const SizedBox(height: 20),
+                    _buildTextField('Your Message', maxLines: 4),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 60,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.gold,
+                          foregroundColor: Colors.black,
+                          shape: const RoundedRectangleBorder(),
+                        ),
+                        child: Text(
+                          'SUBMIT INQUIRY',
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -68,34 +139,57 @@ class ContactPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class _ContactLink extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _ContactLink({required this.icon, required this.label, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildContactMethod({required IconData icon, required String title, required String content, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.gold, size: 24),
-          const SizedBox(width: 16),
-          Text(
-            label,
-            style: GoogleFonts.inter(
-              color: AppColors.goldLight,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+          Icon(icon, color: AppColors.gold, size: 32),
+          const SizedBox(width: 24),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.playfairDisplay(
+                  color: AppColors.ivory,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                content,
+                style: GoogleFonts.inter(
+                  color: AppColors.textMuted,
+                  fontSize: 15,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+
+  Widget _buildTextField(String label, {int maxLines = 1}) {
+    return TextField(
+      maxLines: maxLines,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(color: AppColors.textMuted),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.charcoal),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.gold),
+        ),
+        filled: true,
+        fillColor: AppColors.darkCard,
+      ),
+    );
+  }
 }
+

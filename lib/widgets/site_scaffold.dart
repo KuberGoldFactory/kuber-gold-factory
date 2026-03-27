@@ -39,7 +39,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               Expanded(child: widget.child),
             ],
           ),
-          _buildFloatingButtons(context),
+          _buildFloatingWhatsApp(context),
           if (isMobile && _menuOpen) _buildMobileMenu(context, loc),
         ],
       ),
@@ -214,69 +214,33 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildFloatingButtons(BuildContext context) {
+  Widget _buildFloatingWhatsApp(BuildContext context) {
     return Positioned(
-      right: 20,
+      right: 24,
       bottom: 30,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _FloatingActionBtn(
-            icon: Icons.call_rounded,
-            color: const Color(0xFF34A853),
-            label: 'Call',
-            onTap: () => launchUrl(Uri.parse('tel:+919876543210')),
+      child: Tooltip(
+        message: 'Chat with us on WhatsApp',
+        child: GestureDetector(
+          onTap: () => launchUrl(
+            Uri.parse('https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.'),
+            mode: LaunchMode.externalApplication,
           ),
-          const SizedBox(height: 12),
-          _FloatingActionBtn(
-            icon: Icons.chat_rounded,
-            color: const Color(0xFF25D366),
-            label: 'WhatsApp',
-            onTap: () => launchUrl(
-              Uri.parse('https://wa.me/919876543210?text=Hello%2C%20I%20am%20interested%20in%20your%20gold%20products.'),
-              mode: LaunchMode.externalApplication,
+          child: Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              color: const Color(0xFF25D366),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF25D366).withOpacity(0.4),
+                  blurRadius: 16,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
+            child: const Icon(Icons.chat_bubble_rounded, color: Colors.white, size: 30),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FloatingActionBtn extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String label;
-  final VoidCallback onTap;
-
-  const _FloatingActionBtn({
-    required this.icon,
-    required this.color,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: label,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(0.5),
-                blurRadius: 16,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: Icon(icon, color: Colors.white, size: 26),
         ),
       ),
     );
@@ -330,3 +294,4 @@ class _NavLinkState extends State<_NavLink> {
     );
   }
 }
+

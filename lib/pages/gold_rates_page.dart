@@ -13,16 +13,27 @@ class GoldRatesPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'LIVE GOLD RATES',
+              'BULLION STANDARDS',
               style: GoogleFonts.playfairDisplay(
                 color: AppColors.gold,
-                fontSize: 48,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 4,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'KUBER MARKET RATES',
+              style: GoogleFonts.playfairDisplay(
+                color: AppColors.ivory,
+                fontSize: 48,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
               ),
             ),
             const SizedBox(height: 20),
             Text(
-              'Last Updated: March 26, 2026',
+              'Last Updated: March 27, 2026',
               style: GoogleFonts.inter(
                 color: AppColors.textMuted,
                 fontSize: 14,
@@ -44,6 +55,15 @@ class GoldRatesPage extends StatelessWidget {
                   _buildRateRow('18K Gold (75.0%)', '₹ 5,010 / gm'),
                   _buildRateRow('Pure Silver (99.9%)', '₹ 78.50 / gm'),
                 ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            Text(
+              '* All rates are indicative of Kuber Gold Factory and Kuber Gold Bullion standards.',
+              style: GoogleFonts.inter(
+                color: AppColors.textMuted,
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
               ),
             ),
           ],
@@ -113,3 +133,4 @@ class GoldRatesPage extends StatelessWidget {
     );
   }
 }
+

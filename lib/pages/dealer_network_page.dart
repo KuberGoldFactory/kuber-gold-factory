@@ -13,22 +13,46 @@ class DealerNetworkPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'GLOBAL NETWORK',
+              'SUPPLY CHAIN NETWORK',
               style: GoogleFonts.playfairDisplay(
                 color: AppColors.gold,
-                fontSize: 48,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 4,
               ),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 24),
+            Text(
+              'POWERED BY MILIGRAM',
+              style: GoogleFonts.playfairDisplay(
+                color: AppColors.ivory,
+                fontSize: 48,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
+              ),
+            ),
+            const SizedBox(height: 40),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: Text(
+                'Our B2B dealer network operates on the Miligram digital supply chain, ensuring real-time inventory tracking, secure accounting, and upcoming drone-assisted local logistics.',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: AppColors.textMuted,
+                  fontSize: 16,
+                  height: 1.6,
+                ),
+              ),
+            ),
+            const SizedBox(height: 80),
             Wrap(
               spacing: 40,
               runSpacing: 40,
               alignment: WrapAlignment.center,
               children: [
-                _LocationCard(city: 'Mumbai', address: 'Zaveri Bazaar, Marine Lines'),
-                _LocationCard(city: 'Delhi', address: 'Karol Bagh, New Delhi'),
-                _LocationCard(city: 'Dubai', address: 'Gold Souk, Deira'),
+                _NetworkHub(city: 'Manufacturing Hub', address: 'Akot Factory Setup'),
+                _NetworkHub(city: 'Distribution node', address: 'Regional Supply Points'),
+                _NetworkHub(city: 'Partner Outlets', address: 'Verified Dealer Network'),
               ],
             ),
           ],
@@ -38,11 +62,11 @@ class DealerNetworkPage extends StatelessWidget {
   }
 }
 
-class _LocationCard extends StatelessWidget {
+class _NetworkHub extends StatelessWidget {
   final String city;
   final String address;
 
-  const _LocationCard({required this.city, required this.address});
+  const _NetworkHub({required this.city, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +75,18 @@ class _LocationCard extends StatelessWidget {
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
         color: AppColors.darkCard,
-        border: Border.all(color: AppColors.gold.withOpacity(0.2)),
-        borderRadius: BorderRadius.circular(2),
+        border: Border.all(color: AppColors.gold.withOpacity(0.1)),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         children: [
-          Icon(Icons.location_on_rounded, color: AppColors.gold, size: 32),
+          Icon(Icons.hub_outlined, color: AppColors.gold, size: 32),
           const SizedBox(height: 20),
           Text(
             city,
             style: GoogleFonts.playfairDisplay(
               color: AppColors.ivory,
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -71,7 +95,7 @@ class _LocationCard extends StatelessWidget {
             address,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
-              color: AppColors.textMuted,
+              color: AppColors.textMain,
               fontSize: 14,
             ),
           ),
@@ -80,3 +104,4 @@ class _LocationCard extends StatelessWidget {
     );
   }
 }
+

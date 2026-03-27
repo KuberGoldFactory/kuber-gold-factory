@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 import '../main.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: [
           _buildHero(context),
-          _buildFeatures(context),
+          _buildEcosystem(context),
         ],
       ),
     );
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'THE ART OF PURE GOLD',
+                'THE KUBER ECOSYSTEM',
                 style: GoogleFonts.playfairDisplay(
                   color: AppColors.gold,
                   fontSize: 16,
@@ -48,13 +49,14 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'KUBER GOLD FACTORY',
+                'MANUFACTURING EXCELLENCE\nMEETS DIGITAL INNOVATION',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.playfairDisplay(
                   color: AppColors.ivory,
-                  fontSize: 64,
+                  fontSize: 48,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 2,
+                  height: 1.2,
                 ),
               ),
               const SizedBox(height: 32),
@@ -65,12 +67,29 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                'EXCELLENCE • PURITY • TRUST',
+                'FROM FACTORY PRECISION TO DRONE DELIVERY',
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   color: AppColors.textMuted,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   letterSpacing: 6,
+                ),
+              ),
+              const SizedBox(height: 48),
+              OutlinedButton(
+                onPressed: () => context.go('/about'),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: AppColors.gold),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                ),
+                child: Text(
+                  'DISCOVER THE VISION',
+                  style: GoogleFonts.inter(
+                    color: AppColors.gold,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
                 ),
               ),
             ],
@@ -80,29 +99,43 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatures(BuildContext context) {
+  Widget _buildEcosystem(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
       color: AppColors.charcoal,
-      child: Wrap(
-        spacing: 40,
-        runSpacing: 40,
-        alignment: WrapAlignment.center,
+      child: Column(
         children: [
-          _FeatureCard(
-            icon: Icons.high_quality_rounded,
-            title: '99.9% Purity',
-            desc: 'Certified and hallmarked gold ensuring the highest standards of quality.',
+          Text(
+            'CORE PILLARS',
+            style: GoogleFonts.playfairDisplay(
+              color: AppColors.gold,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 4,
+            ),
           ),
-          _FeatureCard(
-            icon: Icons.factory_rounded,
-            title: 'Direct Supply',
-            desc: 'Direct from the factory pricing, eliminating middlemen for best value.',
-          ),
-          _FeatureCard(
-            icon: Icons.verified_user_rounded,
-            title: 'Legacy of Trust',
-            desc: 'Serving the industry with transparency and reliability for generations.',
+          const SizedBox(height: 60),
+          Wrap(
+            spacing: 40,
+            runSpacing: 40,
+            alignment: WrapAlignment.center,
+            children: [
+              _EcosystemCard(
+                icon: Icons.factory_outlined,
+                title: 'Kuber Factory',
+                desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
+              ),
+              _EcosystemCard(
+                icon: Icons.app_registration_outlined,
+                title: 'Miligram App',
+                desc: 'Digital tools for B2B accounting, secure supply chain management, and wealth services.',
+              ),
+              _EcosystemCard(
+                icon: Icons.airplanemode_active_outlined,
+                title: 'Drone Delivery',
+                desc: 'Future-forward 1km range drone service for seamless, secure door-to-door jewelry logistics.',
+              ),
+            ],
           ),
         ],
       ),
@@ -110,18 +143,18 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _FeatureCard extends StatelessWidget {
+class _EcosystemCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String desc;
 
-  const _FeatureCard({required this.icon, required this.title, required this.desc});
+  const _EcosystemCard({required this.icon, required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
-      padding: const EdgeInsets.all(32),
+      width: 320,
+      padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: AppColors.darkCard,
         border: Border.all(color: AppColors.gold.withOpacity(0.1)),
@@ -130,7 +163,7 @@ class _FeatureCard extends StatelessWidget {
       child: Column(
         children: [
           Icon(icon, color: AppColors.gold, size: 48),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           Text(
             title,
             style: GoogleFonts.playfairDisplay(
@@ -139,7 +172,7 @@ class _FeatureCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           Text(
             desc,
             textAlign: TextAlign.center,
@@ -154,3 +187,4 @@ class _FeatureCard extends StatelessWidget {
     );
   }
 }
+

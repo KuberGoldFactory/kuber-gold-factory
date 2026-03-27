@@ -63,6 +63,7 @@ class AppColors {
   static const Color goldLight = Color(0xFFE8CC6A);
   static const Color goldDark = Color(0xFFAA8A1D);
   static const Color ivory = Color(0xFFF5F0E8);
+  static const Color textMain = Color(0xFFE0E0E0);
   static const Color textMuted = Color(0xFF888888);
   static const Color divider = Color(0xFF2A2A2A);
 }
