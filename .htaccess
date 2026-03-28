@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Redirect all traffic to the build/web directory
+  RewriteCond %{REQUEST_URI} !^/build/web/
+  RewriteRule ^(.*)$ /build/web/$1 [L]
+  
+  # Ensure index.html is served if the directory is requested
+  DirectoryIndex build/web/index.html
+</IfModule>
