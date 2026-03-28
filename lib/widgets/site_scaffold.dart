@@ -32,7 +32,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
-      drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
+      drawer: isMobile ? _buildMobileDrawer(context, loc, isDark) : null,
       body: Row(
         children: [
           if (!isMobile) _buildSidebar(context, loc, isDark),
@@ -207,29 +207,14 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               alignment: Alignment.centerLeft,
               child: _buildKubergLogo(context, isDark, scale: 0.8),
             ),
-            // Theme toggle + Hamburger on right
+            // Hamburger on right
             Align(
               alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-                      color: AppColors.gold,
-                    ),
-                    tooltip: 'Toggle Theme',
-                    onPressed: () {
-                      themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
-                    },
-                  ),
-                  Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    ),
-                  ),
-                ],
+              child: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
               ),
             ),
           ],
@@ -237,7 +222,6 @@ class _SiteScaffoldState extends State<SiteScaffold> {
       ),
     );
   }
-
 
   Widget _buildDesktopHeader(BuildContext context, String loc, bool isDark) {
     final isHome = loc == '/';
@@ -272,7 +256,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildMobileDrawer(BuildContext context, String loc) {
+  Widget _buildMobileDrawer(BuildContext context, String loc, bool isDark) {
     return Drawer(
       backgroundColor: AppColors.obsidian,
       child: Column(
@@ -305,7 +289,25 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               ],
             ),
           ),
-          const _PlayStoreButton(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                const _PlayStoreButton(),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
+                  },
+                  icon: Icon(
+                    isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                    color: AppColors.gold,
+                  ),
+                  tooltip: 'Toggle Theme',
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 20),
         ],
       ),
@@ -313,12 +315,50 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   }
 
   Widget _buildKubergLogo(BuildContext context, bool isDark, {double scale = 1.0}) {
+    final baseFontSize = 28.0 * scale; // Increased base size from 22
     return GestureDetector(
       onTap: () => context.go('/'),
-      child: Image.asset(
-        'assets/images/kuberg_logo.png',
-        height: 60 * scale,
-        fit: BoxFit.contain,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                'kuber',
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.ivory : Colors.black87,
+                  fontSize: baseFontSize * 0.9,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              Text(
+                'g',
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: AppColors.gold,
+                  fontSize: baseFontSize,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          Text(
+            'FACTORY',
+            style: TextStyle(
+              fontFamily: 'Hero',
+              color: AppColors.gold.withOpacity(0.9),
+              fontSize: baseFontSize * 0.36, // Scaled with base size
+              fontWeight: FontWeight.w900,
+              letterSpacing: 4 * scale,
+            ),
+          ),
+        ],
       ),
     );
   }
