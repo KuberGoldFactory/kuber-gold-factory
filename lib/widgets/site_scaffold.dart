@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:js' as js;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,33 +15,6 @@ class SiteScaffold extends StatefulWidget {
 
 class _SiteScaffoldState extends State<SiteScaffold> {
   bool _menuOpen = false;
-  bool _hasInteracted = false;
-
-  void _handleFirstInteraction() {
-    if (!_hasInteracted) {
-      _hasInteracted = true;
-      try {
-        js.context.callMethod('eval', [
-          """
-          (function() {
-            console.log('Kuber Ecosystem: Requesting immersive mode...');
-            var el = document.documentElement;
-            var rfs = el.requestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-            if (rfs) {
-              rfs.call(el).then(function() {
-                console.log('Kuber Ecosystem: Immersive mode active.');
-              }).catch(function(err) {
-                console.warn('Kuber Ecosystem: Immersive mode blocked by browser.', err);
-              });
-            }
-          })();
-          """
-        ]);
-      } catch (e) {
-        // Silent fail
-      }
-    }
-  }
 
   static const _navItems = [
     ('Home', '/'),
@@ -58,11 +30,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     final isMobile = MediaQuery.of(context).size.width < 1100; // Increased threshold for sidebar comfort
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return GestureDetector(
-      onTapDown: (_) => _handleFirstInteraction(),
-      behavior: HitTestBehavior.translucent,
-      child: Scaffold(
-        backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
+    return Scaffold(
+      backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
       drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
       body: Row(
         children: [
@@ -91,9 +60,8 @@ class _SiteScaffoldState extends State<SiteScaffold> {
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildSidebar(BuildContext context, String loc, bool isDark) {
     return Container(
@@ -329,50 +297,12 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   }
 
   Widget _buildKubergLogo(BuildContext context, bool isDark, {double scale = 1.0}) {
-    final baseFontSize = 28.0 * scale; // Increased base size from 22
     return GestureDetector(
       onTap: () => context.go('/'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                'kuber',
-                style: TextStyle(
-                  fontFamily: 'Hero',
-                  color: isDark ? AppColors.ivory : Colors.black87,
-                  fontSize: baseFontSize * 0.9,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              Text(
-                'g',
-                style: TextStyle(
-                  fontFamily: 'Hero',
-                  color: AppColors.gold,
-                  fontSize: baseFontSize,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          Text(
-            'FACTORY',
-            style: TextStyle(
-              fontFamily: 'Hero',
-              color: AppColors.gold.withOpacity(0.9),
-              fontSize: baseFontSize * 0.36, // Scaled with base size
-              fontWeight: FontWeight.w900,
-              letterSpacing: 4 * scale,
-            ),
-          ),
-        ],
+      child: Image.asset(
+        'assets/images/kuberg_logo.png',
+        height: 60 * scale,
+        fit: BoxFit.contain,
       ),
     );
   }

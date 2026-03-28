@@ -13,7 +13,6 @@ import 'pages/doorstep_services_page.dart';
 import 'widgets/site_scaffold.dart';
 
 void main() {
-  debugPrint('Kuber Gold Factory: v18.1 Build - IMMERSIVE DARK MODE ACTIVE');
   runApp(const KuberGoldFactoryApp());
 }
 
@@ -37,7 +36,7 @@ final _router = GoRouter(
   ],
 );
 
-final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.dark);
+final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.light);
 
 class KuberGoldFactoryApp extends StatelessWidget {
   const KuberGoldFactoryApp({super.key});
