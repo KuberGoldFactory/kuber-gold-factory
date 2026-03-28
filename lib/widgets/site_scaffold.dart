@@ -25,14 +25,21 @@ class _SiteScaffoldState extends State<SiteScaffold> {
         js.context.callMethod('eval', [
           """
           (function() {
+            console.log('Kuber Ecosystem: Requesting immersive mode...');
             var el = document.documentElement;
             var rfs = el.requestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-            if (rfs) rfs.call(el);
+            if (rfs) {
+              rfs.call(el).then(function() {
+                console.log('Kuber Ecosystem: Immersive mode active.');
+              }).catch(function(err) {
+                console.warn('Kuber Ecosystem: Immersive mode blocked by browser.', err);
+              });
+            }
           })();
           """
         ]);
       } catch (e) {
-        // Silent fail if browser blocks it
+        // Silent fail
       }
     }
   }
