@@ -8,6 +8,7 @@ import 'pages/gold_rates_page.dart';
 import 'pages/dealer_network_page.dart';
 import 'pages/contact_page.dart';
 import 'pages/vision_page.dart';
+import 'pages/miligram_app_page.dart';
 import 'widgets/site_scaffold.dart';
 
 void main() {
@@ -27,6 +28,7 @@ final _router = GoRouter(
         GoRoute(path: '/dealer-network', builder: (c, s) => const DealerNetworkPage()),
         GoRoute(path: '/contact', builder: (c, s) => const ContactPage()),
         GoRoute(path: '/vision', builder: (c, s) => const VisionPage()),
+        GoRoute(path: '/miligram', builder: (c, s) => const MiligramAppPage()),
       ],
     ),
   ],

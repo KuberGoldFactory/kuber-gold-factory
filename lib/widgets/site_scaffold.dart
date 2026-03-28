@@ -371,7 +371,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 ),
               ],
             ),
-            child: const Icon(Icons.chat_bubble_rounded, color: Colors.white, size: 30),
+            child: const Icon(Icons.support_agent_rounded, color: Colors.white, size: 32),
           ),
         ),
       ),
@@ -401,8 +401,12 @@ class _PlayStoreButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 14),
-            const SizedBox(width: 4),
+            Image.network(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_Play_2022_icon.svg/512px-Google_Play_2022_icon.svg.png',
+              width: 20,
+              height: 20,
+            ),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -411,8 +415,8 @@ class _PlayStoreButton extends StatelessWidget {
                   'GET IT ON',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 6,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
@@ -420,7 +424,7 @@ class _PlayStoreButton extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Hero',
                     color: Colors.white,
-                    fontSize: 10,
+                    fontSize: 14,
                     fontWeight: FontWeight.w900,
                   ),
                 ),

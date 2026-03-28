@@ -147,6 +147,7 @@ class HomePage extends StatelessWidget {
                 isDark: isDark,
                 title: 'Miligram App',
                 desc: 'Digital tools for B2B accounting, secure supply chain management, and wealth services.',
+                onTap: () => context.go('/miligram'),
               ),
               _EcosystemCard(
                 icon: Icons.delivery_dining_rounded,
@@ -167,17 +168,22 @@ class _EcosystemCard extends StatelessWidget {
   final String title;
   final String desc;
   final bool isDark;
+  final VoidCallback? onTap;
 
   const _EcosystemCard({
     required this.icon, 
     required this.title, 
     required this.desc,
     required this.isDark,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
       width: 320,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
