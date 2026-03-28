@@ -154,6 +154,7 @@ class HomePage extends StatelessWidget {
                 isDark: isDark,
                 title: 'Doorstep Services',
                 desc: 'Secure, insured doorstep pickup and delivery for premium gold products and repair services.',
+                onTap: () => context.go('/doorstep'),
               ),
             ],
           ),

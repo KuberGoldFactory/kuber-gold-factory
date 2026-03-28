@@ -9,6 +9,7 @@ import 'pages/dealer_network_page.dart';
 import 'pages/contact_page.dart';
 import 'pages/vision_page.dart';
 import 'pages/miligram_app_page.dart';
+import 'pages/doorstep_services_page.dart';
 import 'widgets/site_scaffold.dart';
 
 void main() {
@@ -29,6 +30,7 @@ final _router = GoRouter(
         GoRoute(path: '/contact', builder: (c, s) => const ContactPage()),
         GoRoute(path: '/vision', builder: (c, s) => const VisionPage()),
         GoRoute(path: '/miligram', builder: (c, s) => const MiligramAppPage()),
+        GoRoute(path: '/doorstep', builder: (c, s) => const DoorstepServicesPage()),
       ],
     ),
   ],
