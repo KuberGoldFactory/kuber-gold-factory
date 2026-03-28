@@ -19,7 +19,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   static const _navItems = [
     ('Home', '/'),
     ('About', '/about'),
-    ('Gold Rates', '/gold-rates'),
+    ('Live Market Rates', '/gold-rates'),
     ('Dealer Network', '/dealer-network'),
     ('Contact', '/contact'),
   ];
