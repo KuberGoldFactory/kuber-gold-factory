@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../main.dart';
+import '../widgets/particle_wave_background.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,17 +24,9 @@ class HomePage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            isDark ? AppColors.obsidian : AppColors.ivory,
-            isDark ? AppColors.charcoal.withOpacity(0.8) : Colors.white.withOpacity(0.9),
-          ],
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-        ),
-      ),
-      child: Center(
+      color: isDark ? AppColors.obsidian : AppColors.ivory,
+      child: ParticleWaveBackground(
+        child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
