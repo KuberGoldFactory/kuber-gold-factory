@@ -371,7 +371,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 ),
               ],
             ),
-            child: const Icon(Icons.support_agent_rounded, color: Colors.white, size: 32),
+            child: const Icon(Icons.headset_mic_rounded, color: Colors.white, size: 32),
           ),
         ),
       ),
