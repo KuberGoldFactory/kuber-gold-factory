@@ -47,7 +47,7 @@ class VisionPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: isDark ? Colors.white : Colors.black,
-              fontSize: 56,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 36 : 56,
               fontWeight: FontWeight.w800,
               letterSpacing: -1,
             ),

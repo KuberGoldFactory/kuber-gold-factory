@@ -30,7 +30,7 @@ class DealerNetworkPage extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Hero',
                 color: isDark ? AppColors.ivory : Colors.black87,
-                fontSize: 48,
+                fontSize: MediaQuery.of(context).size.width < 600 ? 32 : 48,
                 fontWeight: FontWeight.w900,
                 letterSpacing: -0.5,
               ),
