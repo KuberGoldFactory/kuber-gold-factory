@@ -220,8 +220,9 @@ class _EcosystemCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 
