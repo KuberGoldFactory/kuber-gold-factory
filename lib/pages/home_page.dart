@@ -138,7 +138,7 @@ class HomePage extends StatelessWidget {
                 child: _EcosystemCard(
                   icon: Icons.factory_rounded,
                   isDark: isDark,
-                  title: 'Kuber Factory',
+                  title: 'Kuber Gold Factory',
                   desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
                 ),
               ),
