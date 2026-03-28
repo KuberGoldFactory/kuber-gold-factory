@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../widgets/site_scaffold.dart';
 
@@ -131,6 +132,32 @@ class DoorstepServicesPage extends StatelessWidget {
                   fontSize: 16,
                   height: 1.8,
                   fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 60),
+              ElevatedButton.icon(
+                onPressed: () => launchUrl(
+                  Uri.parse('https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20Doorstep%20Logistics%20services.'),
+                  mode: LaunchMode.externalApplication,
+                ),
+                icon: const Icon(Icons.headset_mic_rounded, size: 24),
+                label: const Text(
+                  'Contact Support',
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.gold,
+                  foregroundColor: Colors.black,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
             ],
