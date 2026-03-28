@@ -25,7 +25,7 @@ class GoldRatesPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'KUBER MARKET RATES',
+              'LIVE MARKET RATES',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Hero',
