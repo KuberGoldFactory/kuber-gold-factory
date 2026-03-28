@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
-import '../widgets/site_scaffold.dart';
 
 class DoorstepServicesPage extends StatelessWidget {
   const DoorstepServicesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -30,7 +31,7 @@ class DoorstepServicesPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'SECURE LOGISTICS',
+              'ELITE LOGISTICS',
               style: TextStyle(
                 fontFamily: 'Hero',
                 color: AppColors.gold,
@@ -70,41 +71,40 @@ class DoorstepServicesPage extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
                   color: AppColors.gold.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: AppColors.gold.withOpacity(0.3)),
-                  borderRadius: BorderRadius.circular(16),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    const Icon(Icons.info_outline_rounded, color: AppColors.gold, size: 32),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'CURRENTLY ON TRIAL',
-                            style: TextStyle(
-                              fontFamily: 'Hero',
-                              color: isDark ? AppColors.ivory : Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Doorstep service is on trial in a few areas in Pune. Please confirm availability with our team before placing your order. We will reach your location soon.',
-                            style: TextStyle(
-                              fontFamily: 'Hero',
-                              color: isDark ? AppColors.textMuted : Colors.black87,
-                              fontSize: 15,
-                              height: 1.6,
-                            ),
-                          ),
-                        ],
+                    const Icon(
+                      Icons.info_outline_rounded,
+                      color: AppColors.gold,
+                      size: 48,
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'SERVICE TRIAL NOTICE',
+                      style: TextStyle(
+                        fontFamily: 'Hero',
+                        color: AppColors.gold,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'We are delivering this service in few places in area as on trial. Confirm before order.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Hero',
+                        color: isDark ? AppColors.ivory : Colors.black87,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        height: 1.4,
                       ),
                     ),
                   ],
@@ -112,20 +112,8 @@ class DoorstepServicesPage extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               Text(
-                'Premium Logistics Tailored for the Gold Industry',
+                'Our doorstep services include secure, insured pickup and delivery for premium gold products, repairing, and polishing services. We aim to bring the showroom experience to the comfort of your home.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Hero',
-                  color: isDark ? AppColors.ivory : Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const SizedBox(height: 32),
-              Text(
-                'Our white-glove logistic service is engineered exclusively for B2B jewellers and manufacturers. We provide secure, insured, and GPS-tracked doorstep pickup and delivery for premium gold products, raw materials, and precision repair jobs.\n\nEvery transfer is handled by highly vetted, armed logisticians to ensure absolute zero-compromise security from our factory vault directly into your hands.',
-                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: 'Hero',
                   color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.7),
@@ -136,28 +124,32 @@ class DoorstepServicesPage extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               ElevatedButton.icon(
-                onPressed: () => launchUrl(
-                  Uri.parse('https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20Doorstep%20Logistics%20services.'),
-                  mode: LaunchMode.externalApplication,
-                ),
-                icon: const Icon(Icons.headset_mic_rounded, size: 24),
-                label: const Text(
-                  'Contact Support',
-                  style: TextStyle(
-                    fontFamily: 'Hero',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1,
-                  ),
-                ),
+                onPressed: () => _launchWhatsApp(),
+                icon: const Icon(Icons.support_agent_rounded),
+                label: const Text('CONFIRM VIA CHAT SUPPORT'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.gold,
                   foregroundColor: Colors.black,
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  textStyle: const TextStyle(
+                    fontFamily: 'Hero',
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Please chat with our support team to check availability in your area before scheduling a service.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Hero',
+                  color: isDark ? AppColors.textMuted : Colors.black.withOpacity(0.5),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -165,5 +157,12 @@ class DoorstepServicesPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchWhatsApp() async {
+    final url = Uri.parse('https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20Factory%2C%20I%20would%20like%20to%20confirm%20availability%20for%20Doorstep%20Services.');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
   }
 }

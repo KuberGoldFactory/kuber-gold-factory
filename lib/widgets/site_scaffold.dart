@@ -19,7 +19,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
   static const _navItems = [
     ('Home', '/'),
     ('About', '/about'),
-    ('Live Market Rates', '/gold-rates'),
+    ('Gold Rates', '/gold-rates'),
     ('Dealer Network', '/dealer-network'),
     ('Contact', '/contact'),
   ];
@@ -125,7 +125,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 ),
                 _SidebarItem(
                   icon: Icons.trending_up_rounded,
-                  label: 'Live Market Rates',
+                  label: 'Gold Rates',
                   route: '/gold-rates',
                   active: loc == '/gold-rates',
                 ),
@@ -371,7 +371,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 ),
               ],
             ),
-            child: const Icon(Icons.headset_mic_rounded, color: Colors.white, size: 32),
+            child: const Icon(Icons.support_agent_rounded, color: Colors.white, size: 32),
           ),
         ),
       ),

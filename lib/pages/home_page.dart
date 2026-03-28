@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../main.dart';
-import '../widgets/particle_wave_background.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,9 +23,17 @@ class HomePage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       width: double.infinity,
-      color: isDark ? AppColors.obsidian : AppColors.ivory,
-      child: ParticleWaveBackground(
-        child: Center(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            isDark ? AppColors.obsidian : AppColors.ivory,
+            isDark ? AppColors.charcoal.withOpacity(0.8) : Colors.white.withOpacity(0.9),
+          ],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        ),
+      ),
+      child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -96,7 +103,6 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          ),
         ),
       ),
     );
@@ -132,7 +138,7 @@ class HomePage extends StatelessWidget {
                 child: _EcosystemCard(
                   icon: Icons.factory_rounded,
                   isDark: isDark,
-                  title: 'Kuber Gold Factory',
+                  title: 'Kuber Factory',
                   desc: 'Managing high-precision manufacturing, quality checks, and industrial setups for the gold industry.',
                 ),
               ),
@@ -148,7 +154,7 @@ class HomePage extends StatelessWidget {
                 isDark: isDark,
                 title: 'Doorstep Services',
                 desc: 'Secure, insured doorstep pickup and delivery for premium gold products and repair services.',
-                onTap: () => context.go('/doorstep'),
+                onTap: () => context.go('/doorstep-services'),
               ),
             ],
           ),
@@ -220,9 +226,8 @@ class _EcosystemCard extends StatelessWidget {
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 

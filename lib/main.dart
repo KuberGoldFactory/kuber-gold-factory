@@ -30,7 +30,7 @@ final _router = GoRouter(
         GoRoute(path: '/contact', builder: (c, s) => const ContactPage()),
         GoRoute(path: '/vision', builder: (c, s) => const VisionPage()),
         GoRoute(path: '/miligram', builder: (c, s) => const MiligramAppPage()),
-        GoRoute(path: '/doorstep', builder: (c, s) => const DoorstepServicesPage()),
+        GoRoute(path: '/doorstep-services', builder: (c, s) => const DoorstepServicesPage()),
       ],
     ),
   ],

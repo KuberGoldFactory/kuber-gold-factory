@@ -2,50 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
-class ContactPage extends StatefulWidget {
+class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
-
-  @override
-  State<ContactPage> createState() => _ContactPageState();
-}
-
-class _ContactPageState extends State<ContactPage> {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _messageController = TextEditingController();
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _messageController.dispose();
-    super.dispose();
-  }
 
   Future<void> _launchWhatsApp() async {
     final url = Uri.parse('https://wa.me/919922965494');
     if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    }
-  }
-
-  Future<void> _submitInquiry() async {
-    final name = _nameController.text.trim();
-    final email = _emailController.text.trim();
-    final message = _messageController.text.trim();
-
-    if (name.isEmpty || message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in your name and message.')),
-      );
-      return;
-    }
-
-    final fullMessage = 'Hello Kuber Gold Factory,\n\nI would like to make an inquiry:\n\n*Name:* $name\n*Email:* ${email.isEmpty ? 'Not provided' : email}\n*Message:* $message';
-    final url = Uri.parse('https://wa.me/919922965494?text=${Uri.encodeComponent(fullMessage)}');
-    
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
+      await launchUrl(url);
     }
   }
 
@@ -55,7 +18,7 @@ class _ContactPageState extends State<ContactPage> {
       child: Column(
         children: [
           _buildHero(context),
-          _buildSupportSection(context),
+          _buildContactContent(context),
         ],
       ),
     );
@@ -65,42 +28,25 @@ class _ContactPageState extends State<ContactPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return Container(
-      height: 400,
+      height: 300,
       width: double.infinity,
       color: isDark ? AppColors.obsidian : AppColors.ivory,
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'GET IN TOUCH',
-              style: TextStyle(
-                fontFamily: 'Hero',
-                color: AppColors.gold,
-                fontSize: 12,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 4,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'CONTACT OUR TEAM',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Hero',
-                color: isDark ? AppColors.ivory : Colors.black,
-                fontSize: MediaQuery.of(context).size.width < 600 ? 32 : 48,
-                fontWeight: FontWeight.w900,
-                letterSpacing: -0.5,
-              ),
-            ),
-          ],
+        child: Text(
+          'CONNECT WITH US',
+          style: TextStyle(
+            fontFamily: 'Hero',
+            color: isDark ? AppColors.ivory : Colors.black87,
+            fontSize: MediaQuery.of(context).size.width < 600 ? 32 : 48,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSupportSection(BuildContext context) {
+  Widget _buildContactContent(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return Container(
@@ -167,17 +113,17 @@ class _ContactPageState extends State<ContactPage> {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    _buildTextField(context, 'Your Name', isDark, controller: _nameController),
+                    _buildTextField(context, 'Your Name', isDark),
                     const SizedBox(height: 20),
-                    _buildTextField(context, 'Email Address', isDark, controller: _emailController),
+                    _buildTextField(context, 'Email Address', isDark),
                     const SizedBox(height: 20),
-                    _buildTextField(context, 'Your Message', isDark, controller: _messageController, maxLines: 4),
+                    _buildTextField(context, 'Your Message', isDark, maxLines: 4),
                     const SizedBox(height: 40),
                     SizedBox(
                       width: double.infinity,
                       height: 60,
                       child: ElevatedButton(
-                        onPressed: _submitInquiry,
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.gold,
                           foregroundColor: Colors.black,
@@ -208,62 +154,59 @@ class _ContactPageState extends State<ContactPage> {
 
   Widget _buildContactMethod({
     required bool isDark,
-    required IconData icon,
-    required String title,
-    required String content,
+    required IconData icon, 
+    required String title, 
+    required String content, 
     required VoidCallback onTap,
   }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+          border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.1 : 0.2)),
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.gold.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: AppColors.gold, size: 24),
-            ),
-            const SizedBox(width: 20),
+            Icon(icon, color: AppColors.gold, size: 28),
+            const SizedBox(width: 24),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: 'Hero',
-                      color: isDark ? AppColors.ivory : Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                    ),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: isDark ? AppColors.ivory : Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    content,
-                    style: TextStyle(
-                      fontFamily: 'Hero',
-                      color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  content,
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
+                ),
+              ],
+             ),
             ),
-          ],
+           ],
         ),
       ),
     );
   }
 
-  Widget _buildTextField(BuildContext context, String label, bool isDark, {required TextEditingController controller, int maxLines = 1}) {
+  Widget _buildTextField(BuildContext context, String label, bool isDark, {int maxLines = 1}) {
     return TextField(
-      controller: controller,
       maxLines: maxLines,
       style: TextStyle(
         fontFamily: 'Hero',
@@ -292,3 +235,6 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 }
+
+
+
