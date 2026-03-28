@@ -89,7 +89,7 @@ class ContactPage extends StatelessWidget {
                       isDark: isDark,
                       icon: Icons.location_on_outlined,
                       title: 'Factory Location',
-                      content: 'Akot, Dist. Akola, Maharashtra',
+                      content: 'GROUND FLOOR, HOUSE NO-97, WALKHAD\nMAHULI-VEGEGAON ROAD, NEAR BUS STAND\nKHANAPUR, SANGLI. (415310)',
                       onTap: () {},
                     ),
                   ],
