@@ -187,7 +187,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
           children: [
             // Centered title
             Text(
-              isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+              isHome ? '{ कुबेर गोल्ड फॅक्टरी }' : '{ $title }',
               style: isHome
                   ? GoogleFonts.notoSansDevanagari(
                       color: AppColors.gold,
@@ -234,7 +234,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
         alignment: Alignment.center,
         children: [
           Text(
-            isHome ? 'कुबेर गोल्ड फॅक्टरी' : '{ $title }',
+            isHome ? '{ कुबेर गोल्ड फॅक्टरी }' : '{ $title }',
             style: isHome
                 ? GoogleFonts.notoSansDevanagari(
                     color: AppColors.gold,
