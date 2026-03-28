@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:js' as js;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,26 @@ class SiteScaffold extends StatefulWidget {
 
 class _SiteScaffoldState extends State<SiteScaffold> {
   bool _menuOpen = false;
+  bool _hasInteracted = false;
+
+  void _handleFirstInteraction() {
+    if (!_hasInteracted) {
+      _hasInteracted = true;
+      try {
+        js.context.callMethod('eval', [
+          """
+          (function() {
+            var el = document.documentElement;
+            var rfs = el.requestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+            if (rfs) rfs.call(el);
+          })();
+          """
+        ]);
+      } catch (e) {
+        // Silent fail if browser blocks it
+      }
+    }
+  }
 
   static const _navItems = [
     ('Home', '/'),
@@ -30,8 +51,11 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     final isMobile = MediaQuery.of(context).size.width < 1100; // Increased threshold for sidebar comfort
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
+    return GestureDetector(
+      onTapDown: (_) => _handleFirstInteraction(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
       drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
       body: Row(
         children: [
@@ -60,8 +84,9 @@ class _SiteScaffoldState extends State<SiteScaffold> {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildSidebar(BuildContext context, String loc, bool isDark) {
     return Container(

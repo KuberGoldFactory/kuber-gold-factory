@@ -36,7 +36,7 @@ final _router = GoRouter(
   ],
 );
 
-final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.light);
+final themeModeNotifier = ValueNotifier<ThemeMode>(ThemeMode.dark);
 
 class KuberGoldFactoryApp extends StatelessWidget {
   const KuberGoldFactoryApp({super.key});
