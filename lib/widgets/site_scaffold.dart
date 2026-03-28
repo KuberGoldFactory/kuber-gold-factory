@@ -197,7 +197,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                   : const TextStyle(
                       fontFamily: 'Hero',
                       color: AppColors.gold,
-                      fontSize: 13,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
               textAlign: TextAlign.center,
@@ -245,7 +245,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 : const TextStyle(
                     fontFamily: 'Hero',
                     color: AppColors.gold,
-                    fontSize: 18,
+                    fontSize: 24,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 2,
                   ),

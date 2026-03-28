@@ -83,7 +83,7 @@ class AppColors {
   static const Color obsidian = Color(0xFF080808);
   static const Color charcoal = Color(0xFF111111);
   static const Color darkCard = Color(0xFF191919);
-  static const Color gold = Color(0xFFD4AF37);
+  static const Color gold = Color(0xFFFDBA5A);
   static const Color goldLight = Color(0xFFE8CC6A);
   static const Color goldDark = Color(0xFFAA8A1D);
   static const Color ivory = Color(0xFFF5F0E8);
