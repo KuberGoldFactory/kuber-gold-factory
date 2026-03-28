@@ -173,9 +173,10 @@ class ContactPage extends StatelessWidget {
           children: [
             Icon(icon, color: AppColors.gold, size: 28),
             const SizedBox(width: 24),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                 Text(
                   title,
                   style: TextStyle(
@@ -196,8 +197,9 @@ class ContactPage extends StatelessWidget {
                   ),
                 ),
               ],
+             ),
             ),
-          ],
+           ],
         ),
       ),
     );
