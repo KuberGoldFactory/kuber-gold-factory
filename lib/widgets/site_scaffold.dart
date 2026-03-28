@@ -125,7 +125,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                 ),
                 _SidebarItem(
                   icon: Icons.trending_up_rounded,
-                  label: 'Gold Rates',
+                  label: 'Live Market Rates',
                   route: '/gold-rates',
                   active: loc == '/gold-rates',
                 ),
