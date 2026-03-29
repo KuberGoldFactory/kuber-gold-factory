@@ -207,13 +207,28 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               alignment: Alignment.centerLeft,
               child: _buildKubergLogo(context, isDark, scale: 0.8),
             ),
-            // Hamburger on right
+            // Theme Toggle & Hamburger on right
             Align(
               alignment: Alignment.centerRight,
               child: Builder(
-                builder: (context) => IconButton(
-                  icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+                builder: (context) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
+                      },
+                      icon: Icon(
+                        isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                        color: AppColors.gold,
+                      ),
+                      tooltip: 'Toggle Theme',
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
+                  ],
                 ),
               ),
             ),
