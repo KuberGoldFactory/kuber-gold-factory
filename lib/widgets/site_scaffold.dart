@@ -32,7 +32,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
-      drawer: isMobile ? _buildMobileDrawer(context, loc, isDark) : null,
+      drawer: isMobile ? _buildMobileDrawer(context, loc) : null,
       body: Row(
         children: [
           if (!isMobile) _buildSidebar(context, loc, isDark),
@@ -207,7 +207,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               alignment: Alignment.centerLeft,
               child: _buildKubergLogo(context, isDark, scale: 0.8),
             ),
-            // Theme Toggle & Hamburger on right
+            // Actions on right
             Align(
               alignment: Alignment.centerRight,
               child: Builder(
@@ -271,9 +271,10 @@ class _SiteScaffoldState extends State<SiteScaffold> {
     );
   }
 
-  Widget _buildMobileDrawer(BuildContext context, String loc, bool isDark) {
+  Widget _buildMobileDrawer(BuildContext context, String loc) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Drawer(
-      backgroundColor: AppColors.obsidian,
+      backgroundColor: isDark ? AppColors.obsidian : AppColors.ivory,
       child: Column(
         children: [
           DrawerHeader(
@@ -286,7 +287,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
             child: ListView(
               children: [
                 ..._navItems.map((item) => ListTile(
-                  title: Text(item.$1, style: const TextStyle(color: AppColors.ivory, fontFamily: 'Hero')),
+                  title: Text(item.$1, style: TextStyle(color: isDark ? AppColors.ivory : Colors.black, fontFamily: 'Hero')),
                   selected: loc == item.$2,
                   selectedTileColor: AppColors.gold.withOpacity(0.1),
                   onTap: () {
@@ -295,7 +296,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                   },
                 )),
                 ListTile(
-                  title: const Text('SERVICES', style: TextStyle(color: AppColors.ivory, fontFamily: 'Hero')),
+                  title: Text('SERVICES', style: TextStyle(color: isDark ? AppColors.ivory : Colors.black, fontFamily: 'Hero')),
                   onTap: () {
                     Navigator.pop(context);
                     context.go('/services');
@@ -304,25 +305,7 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                const _PlayStoreButton(),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {
-                    themeModeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
-                  },
-                  icon: Icon(
-                    isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-                    color: AppColors.gold,
-                  ),
-                  tooltip: 'Toggle Theme',
-                ),
-              ],
-            ),
-          ),
+          const _PlayStoreButton(),
           const SizedBox(height: 20),
         ],
       ),
