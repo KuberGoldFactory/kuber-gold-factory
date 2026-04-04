@@ -46,28 +46,9 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
   }
 
   void _openAnnouncement() {
-    showGeneralDialog<void>(
-      context: context,
-      barrierLabel: 'Announcement',
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.78),
-      transitionDuration: const Duration(milliseconds: 280),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return const MiligramLaunchDialog();
-      },
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        final curved = CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
-        return FadeTransition(
-          opacity: curved,
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 0.04),
-              end: Offset.zero,
-            ).animate(curved),
-            child: child,
-          ),
-        );
-      },
+    launchUrl(
+      Uri.parse('https://kubergoldfactory.com/miligram/'),
+      mode: LaunchMode.externalApplication,
     );
   }
 
