@@ -13,8 +13,38 @@ class SiteScaffold extends StatefulWidget {
   State<SiteScaffold> createState() => _SiteScaffoldState();
 }
 
-class _SiteScaffoldState extends State<SiteScaffold> {
+class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderStateMixin {
   bool _menuOpen = false;
+  bool _hasOpenedDrawer = false;
+  bool _hintVisible = true;
+  late AnimationController _hintController;
+  late Animation<double> _pulseScale;
+
+  @override
+  void initState() {
+    super.initState();
+    _hintController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    )..repeat(reverse: true);
+    _pulseScale = Tween<double>(begin: 1.0, end: 1.22).animate(
+      CurvedAnimation(parent: _hintController, curve: Curves.easeInOut),
+    );
+    // Auto-dismiss hint after 5 seconds
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted && !_hasOpenedDrawer) {
+        setState(() => _hintVisible = false);
+        _hintController.stop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _hintController.dispose();
+    super.dispose();
+  }
+
 
   static const _navItems = [
     ('Home', '/'),
@@ -224,9 +254,78 @@ class _SiteScaffoldState extends State<SiteScaffold> {
                       ),
                       tooltip: 'Toggle Theme',
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Hint chip — fades in then out
+                        AnimatedOpacity(
+                          opacity: _hintVisible ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 600),
+                          child: AnimatedSlide(
+                            offset: _hintVisible ? Offset.zero : const Offset(0.4, 0),
+                            duration: const Duration(milliseconds: 500),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: AppColors.gold.withOpacity(0.12),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: AppColors.gold.withOpacity(0.45)),
+                              ),
+                              child: const Text(
+                                'Explore ↑',
+                                style: TextStyle(
+                                  fontFamily: 'Hero',
+                                  color: AppColors.gold,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 2),
+                        // Pulsing animated menu button
+                        AnimatedBuilder(
+                          animation: _hintController,
+                          builder: (ctx, child) {
+                            return Transform.scale(
+                              scale: _hintVisible ? _pulseScale.value : 1.0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: _hintVisible
+                                      ? [
+                                          BoxShadow(
+                                            color: AppColors.gold.withOpacity(
+                                              _hintController.value * 0.45,
+                                            ),
+                                            blurRadius: 14,
+                                            spreadRadius: 2,
+                                          ),
+                                        ]
+                                      : [],
+                                ),
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: IconButton(
+                            icon: const Icon(Icons.menu_rounded, color: AppColors.gold),
+                            onPressed: () {
+                              if (!_hasOpenedDrawer) {
+                                setState(() {
+                                  _hasOpenedDrawer = true;
+                                  _hintVisible = false;
+                                });
+                                _hintController.stop();
+                              }
+                              Scaffold.of(context).openDrawer();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -305,7 +404,15 @@ class _SiteScaffoldState extends State<SiteScaffold> {
               ],
             ),
           ),
-          const _PlayStoreButton(),
+          _AnnouncementDrawerButton(
+            onPressed: () {
+              Navigator.pop(context);
+              showDialog<void>(
+                context: context,
+                builder: (_) => const MiligramLaunchDialog(),
+              );
+            },
+          ),
           const SizedBox(height: 20),
         ],
       ),
@@ -402,9 +509,9 @@ class _PlayStoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => const MiligramLaunchDialog(),
+        launchUrl(
+          Uri.parse('https://kubergoldfactory.com/miligram/'),
+          mode: LaunchMode.externalApplication,
         );
       },
       child: Container(
@@ -453,6 +560,42 @@ class _PlayStoreButton extends StatelessWidget {
   }
 }
 
+class _AnnouncementDrawerButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const _AnnouncementDrawerButton({required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.gold,
+            foregroundColor: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: const Text(
+            'ANNOUNCEMENT',
+            style: TextStyle(
+              fontFamily: 'Hero',
+              fontWeight: FontWeight.w900,
+              fontSize: 14,
+              letterSpacing: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class MiligramLaunchDialog extends StatefulWidget {
   const MiligramLaunchDialog({super.key});
 
@@ -463,7 +606,7 @@ class MiligramLaunchDialog extends StatefulWidget {
 class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
   late Timer _timer;
   late Duration _timeLeft;
-  final DateTime _launchDate = DateTime(2026, 4, 2);
+  final DateTime _launchDate = DateTime(2026, 4, 19);
 
   @override
   void initState() {
@@ -556,7 +699,7 @@ class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'HANUMAN JAYANTI',
+                      'AKSHAYA TRITIYA',
                       style: TextStyle(
                         fontFamily: 'Hero',
                         color: isDark ? Colors.white : Colors.black,
@@ -566,7 +709,7 @@ class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
                       ),
                     ),
                     Text(
-                      'APRIL 2, 2026',
+                      'APRIL 19, 2026',
                       style: TextStyle(
                         fontFamily: 'Hero',
                         color: isDark ? Colors.white54 : Colors.black54,

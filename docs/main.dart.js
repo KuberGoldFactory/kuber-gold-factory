@@ -84544,7 +84544,7 @@ $0(){return A.Hf(A.cV("https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20Fa
 $S:0}
 A.EC.prototype={
 J(a){var s=null,r=A.cu(4),q=A.lY(A.X(B.c.ai(127.5),B.i.m()>>>16&255,B.i.m()>>>8&255,B.i.m()&255)),p=t.p
-return A.oW(!1,s,!0,A.bo(s,A.hV(A.b([new A.yR(A.aKs(s,s,new A.tK("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_Play_2022_icon.svg/512px-Google_Play_2022_icon.svg.png",1,s,B.Wf)),20,20,s),B.OZ,A.bx(A.b([B.Ul,A.aK("Google Play",s,s,s,A.b5(s,s,B.m,s,s,s,s,s,"Hero",s,s,14,s,s,B.L,s,s,!0,s,s,s,s,s,s,s,s),s,s)],p),B.az,B.w,B.ca)],p),B.z,B.w,B.ca,0,s),B.o,s,s,new A.bO(B.e,s,q,r,s,s,B.a1),s,s,s,B.Ew,s,s,s),s,!0,s,s,s,s,s,s,s,s,new A.alX(a),s,s,s,s,s)}}
+return A.oW(!1,s,!0,A.bo(s,A.hV(A.b([new A.yR(A.aKs(s,s,new A.tK("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_Play_2022_icon.svg/512px-Google_Play_2022_icon.svg.png",1,s,B.Wf)),20,20,s),B.OZ,A.bx(A.b([B.Ul,A.aK("ANNOUNCEMENT",s,s,s,A.b5(s,s,B.m,s,s,s,s,s,"Hero",s,s,14,s,s,B.L,s,s,!0,s,s,s,s,s,s,s,s),s,s)],p),B.az,B.w,B.ca)],p),B.z,B.w,B.ca,0,s),B.o,s,s,new A.bO(B.e,s,q,r,s,s,B.a1),s,s,s,B.Ew,s,s,s),s,!0,s,s,s,s,s,s,s,s,new A.alX(a),s,s,s,s,s)}}
 A.alX.prototype={
 $0(){var s,r,q=null,p=this.a,o=A.jq(p,!0).c
 o.toString
@@ -84559,7 +84559,7 @@ A.alW.prototype={
 $1(a){return B.Km},
 $S:568}
 A.pl.prototype={
-al(){return new A.Sk(A.aGO(2026,4,2))}}
+al(){return new A.Sk(A.aGO(2026,4,19))}}
 A.Sk.prototype={
 aD(){var s=this
 s.aT()
@@ -84572,7 +84572,7 @@ l(){var s=this.d
 s===$&&A.a()
 s.b0()
 this.aJ()},
-J(a){var s,r=null,q=A.S(a).ax.a===B.B,p=q?B.aO:B.H,o=A.cu(24),n=A.lY(A.X(B.c.ai(76.5),B.i.m()>>>16&255,B.i.m()>>>8&255,B.i.m()&255)),m=A.b([new A.dz(5,B.dq,A.X(B.c.ai(127.5),B.e.m()>>>16&255,B.e.m()>>>8&255,B.e.m()&255),B.f,20)],t.sq),l=A.bo(r,B.UG,B.o,r,r,new A.bO(B.i,r,r,B.AP,r,r,B.a1),r,r,r,B.nh,r,r,1/0),k=A.aK("HANUMAN JAYANTI",r,r,r,A.b5(r,r,q?B.m:B.e,r,r,r,r,r,"Hero",r,r,32,r,r,B.L,r,r,!0,r,-1,r,r,r,r,r,r),r,r),j=A.aK("APRIL 2, 2026",r,r,r,A.b5(r,r,q?B.D2:B.P,r,r,r,r,r,"Hero",r,r,18,r,r,B.n,r,r,!0,r,r,r,r,r,r,r,r),r,r),i=this.e
+J(a){var s,r=null,q=A.S(a).ax.a===B.B,p=q?B.aO:B.H,o=A.cu(24),n=A.lY(A.X(B.c.ai(76.5),B.i.m()>>>16&255,B.i.m()>>>8&255,B.i.m()&255)),m=A.b([new A.dz(5,B.dq,A.X(B.c.ai(127.5),B.e.m()>>>16&255,B.e.m()>>>8&255,B.e.m()&255),B.f,20)],t.sq),l=A.bo(r,B.UG,B.o,r,r,new A.bO(B.i,r,r,B.AP,r,r,B.a1),r,r,r,B.nh,r,r,1/0),k=A.aK("AKSHAYA TRITIYA",r,r,r,A.b5(r,r,q?B.m:B.e,r,r,r,r,r,"Hero",r,r,32,r,r,B.L,r,r,!0,r,-1,r,r,r,r,r,r),r,r),j=A.aK("APRIL 19, 2026",r,r,r,A.b5(r,r,q?B.D2:B.P,r,r,r,r,r,"Hero",r,r,18,r,r,B.n,r,r,!0,r,r,r,r,r,r,r,r),r,r),i=this.e
 i===$&&A.a()
 i=i.a
 s=t.p
@@ -91244,7 +91244,7 @@ B.Ui=new A.dG(B.S5,B.R3,B.S6,B.SD,B.QF,B.QN,B.Ro,B.St,B.RA,B.T6,B.Q7,B.Qn,B.T0,B
 B.SS=new A.j(!0,B.i,null,"Hero",null,null,14,B.L,null,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Uj=new A.cq("OFFICIAL LAUNCH",null,B.SS,null,null,null,null,null,null)
 B.Sf=new A.j(!0,B.m,null,null,null,null,10,B.U,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Ul=new A.cq("GET IT ON",null,B.Sf,null,null,null,null,null,null)
+B.Ul=new A.cq("OPEN",null,B.Sf,null,null,null,null,null,null)
 B.Um=new A.cq("Page Not Found",null,null,null,null,null,null,null,null)
 B.Un=new A.cq("CORE PILLARS",null,B.bF,null,null,null,null,null,null)
 B.Uo=new A.cq("SECURE LOGISTICS",null,B.bF,null,null,null,null,null,null)

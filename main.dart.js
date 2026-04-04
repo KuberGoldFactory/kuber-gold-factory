@@ -80827,7 +80827,7 @@ $0(){return A.aox(A.dC("https://wa.me/919922965494?text=Hello%20Kuber%20Gold%20F
 $S:0}
 A.Dt.prototype={
 L(a){var s=null,r=A.cH(4),q=A.nC(A.W(B.c.ai(127.5),B.j.m()>>>16&255,B.j.m()>>>8&255,B.j.m()&255)),p=t.p
-return A.rD(!1,s,!0,A.bx(s,A.ms(A.c([B.EY,B.NP,A.bU(A.c([B.T8,A.b_("Google Play",s,s,s,A.bh(s,s,B.m,s,s,s,s,s,"Hero",s,s,10,s,s,B.R,s,s,!0,s,s,s,s,s,s,s,s),s,s)],p),B.aR,B.A,B.co)],p),B.G,B.A,B.co,s),B.q,s,s,new A.bL(B.h,s,q,r,s,s,B.a0),s,s,s,B.DV,s,s,s),s,!0,s,s,s,s,s,s,s,s,new A.aj7(a),s,s,s,s,s)}}
+return A.rD(!1,s,!0,A.bx(s,A.ms(A.c([B.EY,B.NP,A.bU(A.c([B.T8,A.b_("ANNOUNCEMENT",s,s,s,A.bh(s,s,B.m,s,s,s,s,s,"Hero",s,s,10,s,s,B.R,s,s,!0,s,s,s,s,s,s,s,s),s,s)],p),B.aR,B.A,B.co)],p),B.G,B.A,B.co,s),B.q,s,s,new A.bL(B.h,s,q,r,s,s,B.a0),s,s,s,B.DV,s,s,s),s,!0,s,s,s,s,s,s,s,s,new A.aj7(a),s,s,s,s,s)}}
 A.aj7.prototype={
 $0(){var s,r,q=null,p=this.a,o=A.j3(p,!0).c
 o.toString
@@ -80842,7 +80842,7 @@ A.aj6.prototype={
 $1(a){return B.Ja},
 $S:537}
 A.oQ.prototype={
-aq(){return new A.QK(A.aDz(2026,4,2))}}
+aq(){return new A.QK(A.aDz(2026,4,19))}}
 A.QK.prototype={
 aG(){var s=this
 s.aX()
@@ -80855,7 +80855,7 @@ l(){var s=this.d
 s===$&&A.a()
 s.b_()
 this.aK()},
-L(a){var s,r=null,q=A.N(a).ax.a===B.C,p=q?B.b4:B.Q,o=A.cH(24),n=A.nC(A.W(B.c.ai(76.5),B.j.m()>>>16&255,B.j.m()>>>8&255,B.j.m()&255)),m=A.c([new A.ds(5,B.df,A.W(B.c.ai(127.5),B.h.m()>>>16&255,B.h.m()>>>8&255,B.h.m()&255),B.f,20)],t.sq),l=A.bx(r,B.Tj,B.q,r,r,new A.bL(B.j,r,r,B.Ao,r,r,B.a0),r,r,r,B.DT,r,r,1/0),k=A.b_("HANUMAN JAYANTI",r,r,r,A.bh(r,r,q?B.m:B.h,r,r,r,r,r,"Hero",r,r,32,r,r,B.R,r,r,!0,r,-1,r,r,r,r,r,r),r,r),j=A.b_("APRIL 2, 2026",r,r,r,A.bh(r,r,q?B.CB:B.N,r,r,r,r,r,"Hero",r,r,18,r,r,B.n,r,r,!0,r,r,r,r,r,r,r,r),r,r),i=this.e
+L(a){var s,r=null,q=A.N(a).ax.a===B.C,p=q?B.b4:B.Q,o=A.cH(24),n=A.nC(A.W(B.c.ai(76.5),B.j.m()>>>16&255,B.j.m()>>>8&255,B.j.m()&255)),m=A.c([new A.ds(5,B.df,A.W(B.c.ai(127.5),B.h.m()>>>16&255,B.h.m()>>>8&255,B.h.m()&255),B.f,20)],t.sq),l=A.bx(r,B.Tj,B.q,r,r,new A.bL(B.j,r,r,B.Ao,r,r,B.a0),r,r,r,B.DT,r,r,1/0),k=A.b_("AKSHAYA TRITIYA",r,r,r,A.bh(r,r,q?B.m:B.h,r,r,r,r,r,"Hero",r,r,32,r,r,B.R,r,r,!0,r,-1,r,r,r,r,r,r),r,r),j=A.b_("APRIL 19, 2026",r,r,r,A.bh(r,r,q?B.CB:B.N,r,r,r,r,r,"Hero",r,r,18,r,r,B.n,r,r,!0,r,r,r,r,r,r,r,r),r,r),i=this.e
 i===$&&A.a()
 i=i.a
 s=t.p
@@ -87385,7 +87385,7 @@ B.T5=new A.d3("Page Not Found",null,B.im,null,null,null,null,null,null)
 B.T6=new A.d3("BULLION STANDARDS",null,B.cs,null,null,null,null,null,null)
 B.T7=new A.d3("THE SYNERGY",null,B.cs,null,null,null,null,null,null)
 B.R4=new A.j(!0,B.m,null,null,null,null,6,B.n,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.T8=new A.d3("GET IT ON",null,B.R4,null,null,null,null,null,null)
+B.T8=new A.d3("OPEN",null,B.R4,null,null,null,null,null,null)
 B.PY=new A.j(!0,B.m,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.T9=new A.d3("Go to home page",null,B.PY,null,null,null,null,null,null)
 B.Ta=new A.d3("SEND AN INQUIRY",null,B.cs,null,null,null,null,null,null)
