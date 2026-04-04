@@ -179,7 +179,16 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                _PlayStoreButton(),
+                Expanded(
+                  child: _AnnouncementButton(
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => const MiligramLaunchDialog(),
+                      );
+                    },
+                  ),
+                ),
                 const Spacer(),
                 IconButton(
                   onPressed: () {
@@ -404,7 +413,7 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
               ],
             ),
           ),
-          _AnnouncementDrawerButton(
+          _AnnouncementButton(
             onPressed: () {
               Navigator.pop(context);
               showDialog<void>(
@@ -560,10 +569,10 @@ class _PlayStoreButton extends StatelessWidget {
   }
 }
 
-class _AnnouncementDrawerButton extends StatelessWidget {
+class _AnnouncementButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const _AnnouncementDrawerButton({required this.onPressed});
+  const _AnnouncementButton({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
