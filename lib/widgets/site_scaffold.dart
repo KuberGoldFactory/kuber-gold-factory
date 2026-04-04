@@ -45,6 +45,32 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
     super.dispose();
   }
 
+  void _openAnnouncement() {
+    showGeneralDialog<void>(
+      context: context,
+      barrierLabel: 'Announcement',
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.78),
+      transitionDuration: const Duration(milliseconds: 280),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return const MiligramLaunchDialog();
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final curved = CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
+        return FadeTransition(
+          opacity: curved,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 0.04),
+              end: Offset.zero,
+            ).animate(curved),
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
 
   static const _navItems = [
     ('Home', '/'),
@@ -181,12 +207,7 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
               children: [
                 Expanded(
                   child: _AnnouncementButton(
-                    onPressed: () {
-                      showDialog<void>(
-                        context: context,
-                        builder: (_) => const MiligramLaunchDialog(),
-                      );
-                    },
+                    onPressed: _openAnnouncement,
                   ),
                 ),
                 const Spacer(),
@@ -416,10 +437,7 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
           _AnnouncementButton(
             onPressed: () {
               Navigator.pop(context);
-              showDialog<void>(
-                context: context,
-                builder: (_) => const MiligramLaunchDialog(),
-              );
+              _openAnnouncement();
             },
           ),
           const SizedBox(height: 20),
@@ -576,29 +594,45 @@ class _AnnouncementButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.gold,
-            foregroundColor: Colors.black,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: AppColors.gold.withOpacity(0.5)),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _PlayStoreMark(size: 22),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'OPEN',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  'Announcement',
+                  style: TextStyle(
+                    fontFamily: 'Hero',
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
-          ),
-          child: const Text(
-            'ANNOUNCEMENT',
-            style: TextStyle(
-              fontFamily: 'Hero',
-              fontWeight: FontWeight.w900,
-              fontSize: 14,
-              letterSpacing: 1,
-            ),
-          ),
+          ],
         ),
       ),
     );
@@ -647,123 +681,246 @@ class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+
+    return Material(
+      color: Colors.transparent,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 500),
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
-          color: isDark ? AppColors.obsidian : AppColors.ivory,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: AppColors.gold.withOpacity(0.3)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              blurRadius: 20,
-              spreadRadius: 5,
-            ),
-          ],
+          gradient: LinearGradient(
+            colors: isDark
+                ? const [Color(0xFF050505), Color(0xFF111111), Color(0xFF050505)]
+                : const [Color(0xFFF8F1E2), Color(0xFFF2E0BA), Color(0xFFF8F1E2)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Announcement Bar
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: AppColors.gold,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                  ),
-                ),
-                child: const Text(
-                  'ANNOUNCEMENT: MILIGRAM APP IS ON TRIAL',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Hero',
-                    fontWeight: FontWeight.w900,
-                    fontSize: 12,
-                    letterSpacing: 1,
+                  gradient: RadialGradient(
+                    center: const Alignment(0, -0.45),
+                    radius: 1.05,
+                    colors: [
+                      AppColors.gold.withOpacity(0.18),
+                      Colors.transparent,
+                    ],
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                  children: [
-                    const Text(
-                      'OFFICIAL LAUNCH',
+            ),
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
+                  color: AppColors.gold,
+                  child: SafeArea(
+                    bottom: false,
+                    child: const Text(
+                      'ANNOUNCEMENT: MILIGRAM APP IS ON TRIAL',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
+                        color: Colors.black,
                         fontFamily: 'Hero',
-                        color: AppColors.gold,
                         fontWeight: FontWeight.w900,
-                        fontSize: 14,
-                        letterSpacing: 4,
+                        fontSize: 12,
+                        letterSpacing: 1.2,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'AKSHAYA TRITIYA',
-                      style: TextStyle(
-                        fontFamily: 'Hero',
-                        color: isDark ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 32,
-                        letterSpacing: -1,
-                      ),
-                    ),
-                    Text(
-                      'APRIL 19, 2026',
-                      style: TextStyle(
-                        fontFamily: 'Hero',
-                        color: isDark ? Colors.white54 : Colors.black54,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(height: 48),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                ),
+                Expanded(
+                  child: SafeArea(
+                    top: false,
+                    child: Stack(
                       children: [
-                        _CountdownUnit(value: _timeLeft.inDays, label: 'DAYS'),
-                        _CountdownUnit(value: _timeLeft.inHours % 24, label: 'HOURS'),
-                        _CountdownUnit(value: _timeLeft.inMinutes % 60, label: 'MINS'),
-                        _CountdownUnit(value: _timeLeft.inSeconds % 60, label: 'SECS'),
+                        Positioned(
+                          top: 12,
+                          right: 14,
+                          child: IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(
+                              Icons.close_rounded,
+                              color: isDark ? Colors.white70 : Colors.black87,
+                            ),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          padding: const EdgeInsets.fromLTRB(28, 40, 28, 36),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: MediaQuery.of(context).size.height - 120,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'OFFICIAL LAUNCH',
+                                  style: TextStyle(
+                                    fontFamily: 'Hero',
+                                    color: AppColors.gold,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 14,
+                                    letterSpacing: 4,
+                                  ),
+                                ),
+                                const SizedBox(height: 22),
+                                Text(
+                                  'AKSHAYA TRITIYA',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Hero',
+                                    color: isDark ? Colors.white : Colors.black,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 48,
+                                    letterSpacing: -1.4,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  'APRIL 19, 2026',
+                                  style: TextStyle(
+                                    fontFamily: 'Hero',
+                                    color: isDark ? Colors.white70 : Colors.black54,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  'Miligram opens in full on Akshaya Tritiya.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: isDark ? Colors.white60 : Colors.black54,
+                                    fontSize: 15,
+                                    height: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 52),
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: 28,
+                                  runSpacing: 24,
+                                  children: [
+                                    _CountdownUnit(value: _timeLeft.inDays, label: 'DAYS'),
+                                    _CountdownUnit(value: _timeLeft.inHours % 24, label: 'HOURS'),
+                                    _CountdownUnit(value: _timeLeft.inMinutes % 60, label: 'MINS'),
+                                    _CountdownUnit(value: _timeLeft.inSeconds % 60, label: 'SECS'),
+                                  ],
+                                ),
+                                const SizedBox(height: 52),
+                                ElevatedButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.gold,
+                                    foregroundColor: Colors.black,
+                                    padding: const EdgeInsets.symmetric(horizontal: 38, vertical: 20),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'CLOSE',
+                                    style: TextStyle(
+                                      fontFamily: 'Hero',
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 14,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 48),
-                    ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.gold,
-                        foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      ),
-                      child: const Text(
-                        'NOTIFY ME',
-                        style: TextStyle(
-                          fontFamily: 'Hero',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 14,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+class _PlayStoreMark extends StatelessWidget {
+  final double size;
+
+  const _PlayStoreMark({required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(
+        painter: _PlayStoreMarkPainter(),
+      ),
+    );
+  }
+}
+
+class _PlayStoreMarkPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final left = Offset(size.width * 0.12, size.height * 0.1);
+    final right = Offset(size.width * 0.86, size.height * 0.5);
+    final bottom = Offset(size.width * 0.12, size.height * 0.9);
+    final midTop = Offset(size.width * 0.42, size.height * 0.34);
+    final midBottom = Offset(size.width * 0.42, size.height * 0.66);
+
+    final green = Paint()..color = const Color(0xFF34A853);
+    final blue = Paint()..color = const Color(0xFF4285F4);
+    final yellow = Paint()..color = const Color(0xFFFBBC05);
+    final red = Paint()..color = const Color(0xFFEA4335);
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(left.dx, left.dy)
+        ..lineTo(midTop.dx, midTop.dy)
+        ..lineTo(midBottom.dx, midBottom.dy)
+        ..lineTo(bottom.dx, bottom.dy)
+        ..close(),
+      green,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(left.dx, left.dy)
+        ..lineTo(midTop.dx, midTop.dy)
+        ..lineTo(right.dx, right.dy)
+        ..close(),
+      blue,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(left.dx, bottom.dy)
+        ..lineTo(midBottom.dx, midBottom.dy)
+        ..lineTo(right.dx, right.dy)
+        ..close(),
+      yellow,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(midTop.dx, midTop.dy)
+        ..lineTo(midBottom.dx, midBottom.dy)
+        ..lineTo(right.dx, right.dy)
+        ..close(),
+      red,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class _CountdownUnit extends StatelessWidget {

@@ -23,6 +23,7 @@ jobs:
         run: |
           flutter build web --release --base-href /
           cp CNAME build/web/
+          cp -r miligram build/web/miligram
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

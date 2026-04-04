@@ -185,46 +185,47 @@ class _EcosystemCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-      width: 320,
-      padding: const EdgeInsets.all(40),
-      decoration: BoxDecoration(
-        color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
-        border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.gold.withOpacity(0.08),
-              shape: BoxShape.circle,
+        width: 320,
+        padding: const EdgeInsets.all(40),
+        decoration: BoxDecoration(
+          color: AppColors.gold.withOpacity(isDark ? 0.04 : 0.08),
+          border: Border.all(color: AppColors.gold.withOpacity(isDark ? 0.15 : 0.2)),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.gold.withOpacity(0.08),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: AppColors.gold, size: 32),
             ),
-            child: Icon(icon, color: AppColors.gold, size: 32),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            title,
-            style: TextStyle(
-              fontFamily: 'Hero',
-              color: isDark ? AppColors.ivory : Colors.black87,
-              fontSize: 22,
-              fontWeight: FontWeight.w900,
+            const SizedBox(height: 32),
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.ivory : Colors.black87,
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            desc,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Hero',
-              color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
-              fontSize: 15,
-              height: 1.6,
-              fontWeight: FontWeight.w400,
+            const SizedBox(height: 20),
+            Text(
+              desc,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Hero',
+                color: isDark ? AppColors.textMain : Colors.black.withOpacity(0.7),
+                fontSize: 15,
+                height: 1.6,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
