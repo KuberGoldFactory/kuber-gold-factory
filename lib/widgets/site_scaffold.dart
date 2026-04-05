@@ -46,9 +46,28 @@ class _SiteScaffoldState extends State<SiteScaffold> with SingleTickerProviderSt
   }
 
   void _openAnnouncement() {
-    launchUrl(
-      Uri.parse('https://kubergoldfactory.com/miligram/'),
-      mode: LaunchMode.externalApplication,
+    showGeneralDialog<void>(
+      context: context,
+      barrierLabel: 'Announcement',
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.78),
+      transitionDuration: const Duration(milliseconds: 280),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return const MiligramLaunchDialog();
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final curved = CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
+        return FadeTransition(
+          opacity: curved,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 0.04),
+              end: Offset.zero,
+            ).animate(curved),
+            child: child,
+          ),
+        );
+      },
     );
   }
 
@@ -577,20 +596,24 @@ class _AnnouncementButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(4),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
           color: Colors.black,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
           border: Border.all(color: AppColors.gold.withOpacity(0.5)),
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _PlayStoreMark(size: 22),
-            SizedBox(width: 10),
-            Column(
+            Image.network(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_Play_2022_icon.svg/512px-Google_Play_2022_icon.svg.png',
+              width: 22,
+              height: 22,
+            ),
+            const SizedBox(width: 8),
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -598,7 +621,7 @@ class _AnnouncementButton extends StatelessWidget {
                   'OPEN',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 10,
+                    fontSize: 8,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -607,7 +630,7 @@ class _AnnouncementButton extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Hero',
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -794,23 +817,49 @@ class _MiligramLaunchDialogState extends State<MiligramLaunchDialog> {
                                   ],
                                 ),
                                 const SizedBox(height: 52),
-                                ElevatedButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.gold,
-                                    foregroundColor: Colors.black,
-                                    padding: const EdgeInsets.symmetric(horizontal: 38, vertical: 20),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14),
+                                InkWell(
+                                  onTap: () => Navigator.pop(context),
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: AppColors.gold.withOpacity(0.5)),
                                     ),
-                                  ),
-                                  child: const Text(
-                                    'CLOSE',
-                                    style: TextStyle(
-                                      fontFamily: 'Hero',
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 14,
-                                      letterSpacing: 1,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.network(
+                                          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_Play_2022_icon.svg/512px-Google_Play_2022_icon.svg.png',
+                                          width: 24,
+                                          height: 24,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        const Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              'GET IT ON',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Google Play',
+                                              style: TextStyle(
+                                                fontFamily: 'Hero',
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
